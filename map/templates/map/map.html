@@ -4,10 +4,10 @@
 		<title>Kakao 지도 시작하기</title>
 	</head>
 	<body>
-		<div id="facility_lat">
+		<div id="facility_lat" style="display: none;">
 			{{ location.lat }}
 		</div>
-		<div id="facility_lng">
+		<div id="facility_lng" style="display: none;">
 			{{ location.lng }}
 		</div>
 		<div id="map" style="width:500px;height:400px;"></div>
@@ -16,7 +16,7 @@
 			var _lat = 33.450701,
     			_lng = 126.570667;
 			if(!isEmpty(document.getElementById("facility_lat").innerHTML)&&!isEmpty(document.getElementById("facility_lng")).innerHTML){
-				_lat = parsefloat(document.getElementById("facility_lat").innerHTML);
+				_lat = parseFloat(document.getElementById("facility_lat").innerHTML);
 				_lng = parseFloat(document.getElementById("facility_lng").innerHTML);
 			}
 
