@@ -6,10 +6,10 @@
 	<body>
 		
 		<div id="facility_lat" style="display: none">
-			{% if location is not None %}	{{ location.lat }} {% endif %}
+			{{ location.lat }}
 		</div>
 		<div id="facility_lng" style="display: none">
-			{% if location is not None %}	{{ location.lng }} {% endif %}
+			{{ location.lng }}
 		</div>
 		
 		<div id="map" style="width:500px;height:400px;"></div>
