@@ -14,4 +14,4 @@ def curmap(request,lat,lng):
     # else:
     #     loc = None
 
-    return render(request, 'map/map.html', {'location': loc})
+    return render(request, 'map/map.html', {'location': location})
