@@ -1,1 +1,1 @@
-web: gunicorn djeju.wsgi --log-file -
+web: gunicorn todocovid.wsgi --log-file -
