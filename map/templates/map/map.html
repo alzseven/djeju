@@ -16,8 +16,8 @@
 			var _lat = 33.450701,
     			_lng = 126.570667;
 			if(!isEmpty(document.getElementById("facility_lat").innerHTML)&&!isEmpty(document.getElementById("facility_lng")).innerHTML){
-				_lat = document.getElementById("facility_lat");
-				_lng = document.getElementById("facility_lng");
+				_lat = parsefloat(document.getElementById("facility_lat").innerHTML);
+				_lng = parseFloat(document.getElementById("facility_lng").innerHTML);
 			}
 
 			var container = document.getElementById('map');
