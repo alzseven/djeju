@@ -9,3 +9,7 @@ class MaskStores(models.Model):
     lat = models.FloatField()
     lng = models.FloatField()
     name = models.CharField(max_length = 200)
+
+class Location(models.Model):
+    lat = models.FloatField()
+    lng = models.FloatField()
