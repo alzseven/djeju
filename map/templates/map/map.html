@@ -5,11 +5,11 @@
 	</head>
 	<body>
 		
-		<div id="facility_lat">
-			{% if l is not None %}	{{ l.lat }} {% endif %}
+		<div id="facility_lat" style="display: none">
+			{% if loc is not None %}	{{ loc.lat }} {% endif %}
 		</div>
-		<div id="facility_lng">
-			{% if l is not None %}	{{ l.lng }} {% endif %}
+		<div id="facility_lng" style="display: none">
+			{% if loc is not None %}	{{ loc.lng }} {% endif %}
 		</div>
 		
 		<div id="map" style="width:500px;height:400px;"></div>
