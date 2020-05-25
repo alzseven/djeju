@@ -8,4 +8,10 @@ def map(request):
 
 def curmap(request,lat,lng):
     location = Location.objects.filter(lat=float(lat), lng=float(lng))
-    return render(request, 'map/map.html', {'location': location})
+
+    if len(location) > 0:
+        loc = location[0]
+    else:
+        loc = None
+
+    return render(request, 'map/map.html', {'location': loc})
