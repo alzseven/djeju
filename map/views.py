@@ -8,4 +8,4 @@ def map(request):
 
 def curmap(request,lat,lng):
     location = Location.objects.filter(lat=float(lat), lng=float(lng))
-    return render(request, 'map/map.html', {'loc': location})
+    return render(request, 'map/map.html', {'location': location})
