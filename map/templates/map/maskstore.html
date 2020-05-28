@@ -14,7 +14,7 @@
 		<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=4e63037725e2b7837bb5c426532533f0"></script>
 		<script>
 
-			var data = JSON.parse('{{ data.strdata | escapejs }}');
+			var data = JSON.parse('{{ strdata.strdata | escapejs }}');
 
 			var _lat = 33.450701,
     			_lng = 126.570667;
