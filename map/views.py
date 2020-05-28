@@ -33,9 +33,9 @@ def maskmap(request):
     dis = 0
     if(lvl>0 and lvl<5):
         dis = 125 * 2**(lvl+1)
-    else:
-        #invalid value
-        dis = 0
+    # else:
+    #     #invalid value
+    #     dis = 0
 
     apiReqtxt = "lat="+ str(cur_lat) + "&lng=" + str(cur_lng) + "&m=" + str(dis) 
     # apiReq
