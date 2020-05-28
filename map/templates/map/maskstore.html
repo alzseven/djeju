@@ -60,37 +60,38 @@
             // 	};
         	// }
 
+			var map = new kakao.maps.Map(container, options);
 
-			kakao.maps.load(function() {
-				// v3가 모두 로드된 후, 이 콜백 함수가 실행됩니다.
-				var map = new kakao.maps.Map(container, options);
+			for(var i=0;i<str_data.length;i++){
+				// 마커가 표시될 위치입니다 
+				var markerPosition  = new kakao.maps.LatLng(str_data[i][0],str_data[i][1]); 
 
-				for(var i=0;i<str_data.length;i++){
-					// 마커가 표시될 위치입니다 
-					var markerPosition  = new kakao.maps.LatLng(str_data[i][0],str_data[i][1]); 
+				// 마커를 생성합니다
+				var marker = new kakao.maps.Marker({
+					position: markerPosition
+				});
 
-					// 마커를 생성합니다
-					var marker = new kakao.maps.Marker({
-						position: markerPosition
-					});
+				// 마커가 지도 위에 표시되도록 설정합니다
+				marker.setMap(map);
+				// var iwContent = str_data[i][2];
+				// iwPosition = markerPosition //인포윈도우 표시 위치입니다
 
-					// 마커가 지도 위에 표시되도록 설정합니다
-					marker.setMap(map);
-					// var iwContent = str_data[i][2];
-					// iwPosition = markerPosition //인포윈도우 표시 위치입니다
-
-					// // 인포윈도우를 생성합니다
-					// var infowindow = new kakao.maps.InfoWindow({
-					// 	position : iwPosition, 
-					// 	content : iwContent 
-					// });
+				// // 인포윈도우를 생성합니다
+				// var infowindow = new kakao.maps.InfoWindow({
+				// 	position : iwPosition, 
+				// 	content : iwContent 
+				// });
 					
-					markers.push(marker);
+				//markers.push(marker);
 
-					// kakao.maps.event.addListener(marker, 'mouseover', makeOverListener(map, marker, infowindow));
-					// kakao.maps.event.addListener(marker, 'mouseout', makeOutListener(infowindow));
-				}
-			});
+				// kakao.maps.event.addListener(marker, 'mouseover', makeOverListener(map, marker, infowindow));
+				// kakao.maps.event.addListener(marker, 'mouseout', makeOutListener(infowindow));
+			}
+
+			// kakao.maps.load(function() {
+			// 	// v3가 모두 로드된 후, 이 콜백 함수가 실행됩니다.
+				
+			// });
 			
 			// 클러스터러에 마커들을 추가합니다
 			// clusterer.addMarkers(markers);
