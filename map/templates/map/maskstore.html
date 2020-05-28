@@ -30,7 +30,7 @@
 
 			var str_data = [];
 			for(var i=0; i<data.count; i++) {
-				str_data[i] = [data.stores[i].lat,data.stores[i].lng,data.stores[i].name]
+				str_data[i] = [data.stores[i].lat,data.stores[i].lng,data.stores[i].name,data.stores[i].remain_stats]
 			}
 
         	// // 인포윈도우를 표시하는 클로저를 만드는 함수입니다 
@@ -48,30 +48,64 @@
 
 			var map = new kakao.maps.Map(container, options);
 
+			var markerImageSrc = '{% static 'maskcol.png' %}';
+			
 			for(var i=0;i<str_data.length;i++){
 				// 마커가 표시될 위치입니다 
-				var markerPosition  = new kakao.maps.LatLng(str_data[i][0],str_data[i][1]); 
+				if(str_data[i][3] != "break"){
+					var markerPosition  = new kakao.maps.LatLng(str_data[i][0],str_data[i][1]); 
 
-				// 마커를 생성합니다
-				var marker = new kakao.maps.Marker({
-					position: markerPosition
-				});
-
-				// 마커가 지도 위에 표시되도록 설정합니다
-				marker.setMap(map);
-				// var iwContent = str_data[i][2];
-				// iwPosition = markerPosition //인포윈도우 표시 위치입니다
-
-				// // 인포윈도우를 생성합니다
-				// var infowindow = new kakao.maps.InfoWindow({
-				// 	position : iwPosition, 
-				// 	content : iwContent 
-				// });
+					// // 마커를 생성합니다
+					// var marker = new kakao.maps.Marker({
+					// 	position: markerPosition
+					// });
+					var imageNum = 160;
+					switch (str_data[i][3]) {
+						case "plenty":
+							imageNum = 0;
+							break;
+						case "some":
+							imageNum = 40;
+							break;
+						case "few":
+							imageNum = 80;
+							break;
+						case "empty":
+							imageNum = 120;
+						default:
+							break;
+					}
 					
-				//markers.push(marker);
 
-				// kakao.maps.event.addListener(marker, 'mouseover', makeOverListener(map, marker, infowindow));
-				// kakao.maps.event.addListener(marker, 'mouseout', makeOutListener(infowindow));
+					var imageSize = new kakao.maps.Size(22, 26),
+					imageOptions = {  
+						spriteOrigin: new kakao.maps.Point(0, imageNum),    
+						spriteSize: new kakao.maps.Size(40, 160)  
+					};     
+				
+					// 마커이미지와 마커를 생성합니다
+					var markerImage = createMarkerImage(markerImageSrc, imageSize, imageOptions),    
+						marker = createMarker(markerPosition, markerImage);
+
+					var markerImage;
+
+					// 마커가 지도 위에 표시되도록 설정합니다
+					marker.setMap(map);
+					// var iwContent = str_data[i][2];
+					// iwPosition = markerPosition //인포윈도우 표시 위치입니다
+
+					// // 인포윈도우를 생성합니다
+					// var infowindow = new kakao.maps.InfoWindow({
+					// 	position : iwPosition, 
+					// 	content : iwContent 
+					// });
+						
+					//markers.push(marker);
+
+					// kakao.maps.event.addListener(marker, 'mouseover', makeOverListener(map, marker, infowindow));
+					// kakao.maps.event.addListener(marker, 'mouseout', makeOutListener(infowindow));
+				}
+				
 			}
 
 			// kakao.maps.load(function() {
