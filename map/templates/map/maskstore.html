@@ -11,7 +11,7 @@
 			{{ data.lng }}
 		</div>
 		<div id="map" style="width:100%;height:100%;"></div>
-		<script type="text/javascript" src="https://dapi.kakao.com/v2/maps/sdk.js?appkey=4e63037725e2b7837bb5c426532533f0&libraries=clusterer"></script>
+		<script type="text/javascript" src="https://dapi.kakao.com/v2/maps/sdk.js?appkey=4e63037725e2b7837bb5c426532533f0"></script>
 		<script>
 
 			var data = '{{ strdata.strdata | escapejs }}';
@@ -34,19 +34,12 @@
 			var map = new kakao.maps.Map(container, options);
 
 
-			// 마커 클러스터러를 생성합니다 
-			var clusterer = new kakao.maps.MarkerClusterer({
-				map: map, // 마커들을 클러스터로 관리하고 표시할 지도 객체 
-				averageCenter: true, // 클러스터에 포함된 마커들의 평균 위치를 클러스터 마커 위치로 설정 
-				minLevel: parseInt('{{ strdata.strdata | escapejs }}') * 2 // 클러스터 할 최소 지도 레벨 
-			});
-
-			function isEmpty(str){
-		 		if(typeof str == "undefined" || str == null || str == "")
-					return true;
-		 		else
-					return false;
-	 		}
+			// // 마커 클러스터러를 생성합니다 
+			// var clusterer = new kakao.maps.MarkerClusterer({
+			// 	map: map, // 마커들을 클러스터로 관리하고 표시할 지도 객체 
+			// 	averageCenter: true, // 클러스터에 포함된 마커들의 평균 위치를 클러스터 마커 위치로 설정 
+			// 	minLevel: parseInt('{{ strdata.strdata | escapejs }}') * 2 // 클러스터 할 최소 지도 레벨 
+			// });
 
 			var markers = [];
 			var str_data = [];
@@ -94,10 +87,10 @@
 				
 			}
 			// 클러스터러에 마커들을 추가합니다
-			clusterer.addMarkers(markers);
+			// clusterer.addMarkers(markers);
 
 			// 지도에 마커와 인포윈도우를 표시하는 함수입니다
-			function displayMarker(locPosition, message) {
+			function displayMarker(locPosition) {
 
 				// 마커를 생성합니다
 				var marker = new kakao.maps.Marker({  
@@ -105,8 +98,8 @@
 					position: locPosition
 				}); 
 			
-				var iwContent = message, // 인포윈도우에 표시할 내용
-					iwRemoveable = true;
+				// var iwContent = message, // 인포윈도우에 표시할 내용
+				// 	iwRemoveable = true;
 
 				// 인포윈도우를 생성합니다
 				var infowindow = new kakao.maps.InfoWindow({
@@ -119,7 +112,14 @@
 			
 				// 지도 중심좌표를 접속위치로 변경합니다
 				map.setCenter(locPosition);      
-			}    
+			}
+
+			function isEmpty(str){
+		 		if(typeof str == "undefined" || str == null || str == "")
+					return true;
+		 		else
+					return false;
+	 		}    
 	</script>
 	</body>
 </html>
