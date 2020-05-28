@@ -29,10 +29,7 @@
 				level: 3
 			};
 		
-			kakao.maps.load(function() {
-				// v3가 모두 로드된 후, 이 콜백 함수가 실행됩니다.
-				var map = new kakao.maps.Map(container, options);
-			});
+			
 
 			// // 마커 클러스터러를 생성합니다 
 			// var clusterer = new kakao.maps.MarkerClusterer({
@@ -62,8 +59,12 @@
                 	infowindow.close();
             	};
         	}
-			
-			for(var i=0;i<str_data.length;i++){
+
+
+			kakao.maps.load(function() {
+				// v3가 모두 로드된 후, 이 콜백 함수가 실행됩니다.
+				var map = new kakao.maps.Map(container, options);
+				for(var i=0;i<str_data.length;i++){
 				// 마커가 표시될 위치입니다 
 				var markerPosition  = new kakao.maps.LatLng(str_data[i][0],str_data[i][1]); 
 
@@ -88,7 +89,9 @@
 				kakao.maps.event.addListener(marker, 'mouseover', makeOverListener(map, marker, infowindow));
 				kakao.maps.event.addListener(marker, 'mouseout', makeOutListener(infowindow));
 				
-			}
+				}
+			});
+			
 			// 클러스터러에 마커들을 추가합니다
 			// clusterer.addMarkers(markers);
 
