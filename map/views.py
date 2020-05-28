@@ -27,7 +27,7 @@ def maskmap(request):
     # djangoReq
     cur_lat = request.GET.get('lat')
     cur_lng = request.GET.get('lng')
-    lvl = request.GET.get("level")
+    lvl = int(request.GET.get("level"))
     # dis = request.GET.get('dis')
 
     dis = 0
