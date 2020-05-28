@@ -14,7 +14,7 @@
 		<script type="text/javascript" src="https://dapi.kakao.com/v2/maps/sdk.js?appkey=4e63037725e2b7837bb5c426532533f0"></script>
 		<script>
 
-			var data = '{{ strdata.strdata | escapejs }}';
+			
 
 			var _lat = 33.450701,
     			_lng = 126.570667;
@@ -29,10 +29,10 @@
 				level: 3
 			};
 		
-			
-
-			var map = new kakao.maps.Map(container, options);
-
+			kakao.maps.load(function() {
+				// v3가 모두 로드된 후, 이 콜백 함수가 실행됩니다.
+				var map = new kakao.maps.Map(container, options);
+			});
 
 			// // 마커 클러스터러를 생성합니다 
 			// var clusterer = new kakao.maps.MarkerClusterer({
@@ -42,6 +42,9 @@
 			// });
 
 			var markers = [];
+
+			var data = '{{ strdata.strdata | escapejs }}';
+
 			var str_data = [];
 			for(var i=0; i<data.count; i++) {
 				str_data[i] = [data.stores[i].lat,data.stores[i].lng,data.stores[i].name]
