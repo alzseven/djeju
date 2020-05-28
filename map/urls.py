@@ -3,6 +3,7 @@ from . import views
 
 urlpatterns = [
     path('',views.map, name='map'),
-    path('<str:lat>/<str:lng>',views.curmap, name='loc'),
+    path('maskstore/',views.maskmap),
+    #path('<str:lat>/<str:lng>',views.curmap, name='loc'),
     #path('')
 ]
