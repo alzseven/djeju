@@ -29,7 +29,7 @@
 			var data = JSON.parse('{{ strdata.strdata | escapejs }}');
 
 			var str_data = [];
-			for(var i=0; i<data.count; i++) {
+			for(var i=0; i<=data.count; i++) {
 				str_data[i] = [data.stores[i].lat,data.stores[i].lng,data.stores[i].name]
 			}
 
