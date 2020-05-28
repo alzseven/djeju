@@ -31,15 +31,13 @@ def maskmap(request):
     # dis = request.GET.get('dis')
 
     dis = 0
-    if(lvl>0 and lvl<3):
-        dis = 50
-    elif(lvl>=3 and lvl<=9):
-        dis = 75 * 2**(lvl-3)
+    if(lvl>0 and lvl<5):
+        dis = 125 * 2**(lvl+1)
     else:
         #invalid value
         dis = 0
 
-    apiReqtxt = "lat="+str(cur_lat) + "&lng=" + str(cur_lng) + "&m=" + str(dis) 
+    apiReqtxt = "lat="+ str(cur_lat) + "&lng=" + str(cur_lng) + "&m=" + str(dis) 
     # apiReq
     url = "https://8oi9s0nnth.apigw.ntruss.com/corona19-masks/v1/storesByGeo/json?" + apiReqtxt
     req = requests.get(url).text
