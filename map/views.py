@@ -84,4 +84,4 @@ def maskmap(request):
         #  "str_type":list(types),
          })
 
-    return render(request, 'map/maskstore.html', {'data':data})
+    return render(request, 'map/maskstore.html', {'strdata':data})
