@@ -22,7 +22,10 @@
 
 			var str_data = [];
 			for(var i=0; i<data.count; i++) {
-				str_data[i] = [data.stores[i].lat,data.stores[i].lng,data.stores[i].name,data.stores[i].remain_stats]
+				str_data[i] = [	data.stores[i].lat,
+								data.stores[i].lng,
+								data.stores[i].name,
+								data.stores[i].remain_stats];
 			}
 
 			var map = new kakao.maps.Map(container, options);
