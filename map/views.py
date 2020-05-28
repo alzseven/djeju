@@ -33,7 +33,7 @@ def maskmap(request):
     dis = 0
     if(lvl>0 and lvl<3):
         dis = 50
-    elif(lvl=>3 and lvl<=9):
+    elif(lvl>=3 and lvl<=9):
         dis = 75 * 2**(lvl-3)
     else:
         #invalid value
