@@ -42,7 +42,7 @@ def maskmap(request):
     apiReqtxt = "lat="+str(cur_lat) + "&lng=" + str(cur_lng) + "&m=" + str(dis) 
     # apiReq
     url = "https://8oi9s0nnth.apigw.ntruss.com/corona19-masks/v1/storesByGeo/json?" + apiReqtxt
-    req = requests.get(url).json()
+    req = requests.get(url).text
     #total_page = req.json()['totalPages'] 
     # count = req.json()['count']
     # stores = req.json()['stores']
@@ -72,7 +72,7 @@ def maskmap(request):
         {"lat":float(cur_lat),
          "lng":float(cur_lng),
          "lvl":int(lvl),
-         "strdata":json.dumps(req)
+         "strdata":str(req)
         #  "str_addr":list(addrs),
         #  #"str_code":list(codes),
         #  #"str_cre":list(cres),

@@ -26,7 +26,7 @@
 
 			// var markers = [];
 
-			var data = '{{ strdata.strdata | escapejs }}';
+			var data = JSON.parse('{{ strdata.strdata | escapejs }}');
 
 			var str_data = [];
 			for(var i=0; i<data.count; i++) {
