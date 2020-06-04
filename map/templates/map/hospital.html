@@ -21,7 +21,7 @@
 			var data = JSON.parse('{{ data.hosdata | escapejs }}');
 
 			var hos_data = [];
-			for(var i=0; i<data.count; i++) {
+			for(var i=0; i<data.length; i++) {
 			 	hos_data[i] = [	data[i].latitude,
 			 					data[i].longtitude,
 			 					data[i].yadmNm,
@@ -34,7 +34,7 @@
 			
 			for(var i=0;i<hos_data.length;i++){
 			// 	if(str_data[i][3] != "break"){
-			    var markerPosition  = new kakao.maps.LatLng(hos_data[i][0],str_data[i][1]); 
+			    var markerPosition  = new kakao.maps.LatLng(hos_data[i][0],hos_data[i][1]); 
 			// 		var imageNum = 160;
 			// 		switch (str_data[i][3]) {
 			// 			case "plenty":
