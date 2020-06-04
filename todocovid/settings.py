@@ -161,15 +161,11 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 #STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
-import dj_database_url
-DATABASES['default'] = dj_database_url.config(conn_max_age=600, ssl_require=True)
+
 
 django_heroku.settings(locals())
 
-
-if 'DATABASE_URL' in os.environ:  # please help me heroku gods
-    if 'postgres' in os.environ['DATABASE_URL']:
-        os.environ['DATABASE_URL'] = os.environ['DATABASE_URL'].replace('postgres', 'postgis')
-#
+import dj_database_url
+DATABASES['default'] = dj_database_url.config(conn_max_age=600, ssl_require=True)
 
 #SITE_ID=1
