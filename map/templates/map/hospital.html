@@ -20,19 +20,19 @@
 
 			var data = JSON.parse('{{ data.hosdata | escapejs }}');
 
-			// var str_data = [];
-			// for(var i=0; i<data.count; i++) {
-			// 	str_data[i] = [	data.stores[i].lat,
-			// 					data.stores[i].lng,
-			// 					data.stores[i].name,
-			// 					data.stores[i].remain_stat];
-			// }
+			var hos_data = [];
+			for(var i=0; i<data.count; i++) {
+			 	hos_data[i] = [	data[i].latitude,
+			 					data[i].longtitude,
+			 					data[i].yadmNm,
+			 					data[i].telno];
+			}
 
 			var map = new kakao.maps.Map(container, options);
 
 			// var markerImageSrc = "{% static 'maskcol.png' %}";
 			
-			// for(var i=0;i<str_data.length;i++){
+			for(var i=0;i<hos_data.length;i++){
 			// 	if(str_data[i][3] != "break"){
 			// 		var markerPosition  = new kakao.maps.LatLng(str_data[i][0],str_data[i][1]); 
 			// 		var imageNum = 160;
@@ -57,8 +57,8 @@
 			// 			spriteSize: new kakao.maps.Size(40, 160)  
 			// 		};     
 			// 		var markerImage = createMarkerImage(markerImageSrc, imageSize, imageOptions),    
-			// 			marker = createMarker(markerPosition, markerImage);
-			// 		marker.setMap(map);
+			 	var	marker = new kakao.maps.Marker({position: position});
+			 	marker.setMap(map);
 			// 	}
 			// }
 			// function createMarkerImage(src, size, options) {
@@ -71,7 +71,7 @@
 			// 		image: image
 			// 	});
 			// 	return marker;  
-			// }  
+			}  
 	</script>
 	</body>
 </html>
