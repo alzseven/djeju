@@ -34,7 +34,7 @@
 			
 			for(var i=0;i<hos_data.length;i++){
 			// 	if(str_data[i][3] != "break"){
-			// 		var markerPosition  = new kakao.maps.LatLng(str_data[i][0],str_data[i][1]); 
+			    var markerPosition  = new kakao.maps.LatLng(hos_data[i][0],str_data[i][1]); 
 			// 		var imageNum = 160;
 			// 		switch (str_data[i][3]) {
 			// 			case "plenty":
@@ -57,7 +57,7 @@
 			// 			spriteSize: new kakao.maps.Size(40, 160)  
 			// 		};     
 			// 		var markerImage = createMarkerImage(markerImageSrc, imageSize, imageOptions),    
-			 	var	marker = new kakao.maps.Marker({position: position});
+			 	var	marker = new kakao.maps.Marker({position: markerPosition});
 			 	marker.setMap(map);
 			// 	}
 			// }
