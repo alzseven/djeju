@@ -4,13 +4,14 @@ import xmltodict
 from django.contrib.gis.geos import fromstr
 from map.models import Hospitals
 
-def run(args):
+def run():
     CREATE_CODE = 1
     # READ_CODE = 2
     # UPDATE_CODE = 3
     DELETE_CODE = 4
     RESET_CODE = 5
 
+    args = input("번호 입력:")
     if (args==CREATE_CODE):
         num = input("구분코드의 번호를 입력해주세요.\n1. 국민안심병원\n2. 코로나 검사 실시기관\n3. 코로나 선별진료소 운영기관")
         if(num==1):
