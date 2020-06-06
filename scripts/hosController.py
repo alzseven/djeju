@@ -36,7 +36,7 @@ def run():
 
 def createhos(hosType):
     numOfRows = 100
-    key = "uQQjZyj3ItqNMxCFKiX5%2BE4KhvWalHJc0vVjBDUpmvM7Z%2Bb3ZBBrN1ZVuwyZ7sO0SeJCTVRnS5N7wxZq1ok%2FaA%3D%3D"
+    key = "j%2BnuUay451ipAStppt2Uh7XE3aAUvC%2FtxdLMMHEreI7KR%2FY0%2B0%2BIAsODyasKyftwZXHwQ8SNTxD2QY5y2W8aXw%3D%3D"
     preUrl = "http://apis.data.go.kr/B551182/pubReliefHospService/getpubReliefHospList?ServiceKey=" + key + "&pageNo=1&numOfRows=10&spclAdmTyCd=" + hosType
     preReq = requests.get(preUrl).content
     prexmlObj = xmltodict.parse(preReq)
