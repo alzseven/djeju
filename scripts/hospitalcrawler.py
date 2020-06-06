@@ -8,9 +8,10 @@ def run():
 
     Hospitals.objects.all().delete()
 
+    #hosType = ""
     numOfRows = 100
     key = "uQQjZyj3ItqNMxCFKiX5%2BE4KhvWalHJc0vVjBDUpmvM7Z%2Bb3ZBBrN1ZVuwyZ7sO0SeJCTVRnS5N7wxZq1ok%2FaA%3D%3D"
-    preUrl = "http://apis.data.go.kr/B551182/pubReliefHospService/getpubReliefHospList?ServiceKey=" + key + "&pageNo=1&numOfRows=10"
+    preUrl = "http://apis.data.go.kr/B551182/pubReliefHospService/getpubReliefHospList?ServiceKey=" + key + "&pageNo=1&numOfRows=10" #&spclAdmTyCd=" + hosType
     preReq = requests.get(preUrl).content
     prexmlObj = xmltodict.parse(preReq)
     totalCount = prexmlObj['response']['body']['totalCount']
@@ -97,26 +98,3 @@ def run():
                         telno = _telno,
                         adtFrDd = _adtFrDd,
                         spclAdmTyCd = _spclAdmTyCd,).save()
-
-    # latitude = gismodels.FloatField()
-    # longtitude = gismodels.FloatField()
-    # sidoNm = gismodels.CharField(max_length=400)      #시도명
-    # sgguNm = gismodels.CharField(max_length=400)      #시군구명
-    # location = gismodels.PointField()
-    # yadmNm = gismodels.CharField(max_length=200)      #기관명 = 병원이름
-    # hospTyTpCd = gismodels.CharField(max_length=2)  #선정유형 = 국민안심병원 선정유형
-    # telno = gismodels.CharField(max_length=30)       #전화번호
-    # # adtFrDd = gismodels.CharField(max_length=8)     #운영가능일자
-    # spclAdmTyCd = gismodels.CharField(max_length=2) #구분코드
-
-## 이 명령어는 이 파일이 import가 아닌 python에서 직접 실행할 경우에만 아래 코드가 동작하도록 합니다.
-# if __name__=='__main__':
-#     print("init")
-#     crawlReliefHospitals()
-#     blog_data_dict = parse_blog()
-#     for t, l in blog_data_dict.items():
-#         BlogData(title=t, link=l).save()
-
-# class BlogData(models.Model):
-#     title = models.CharField(max_length=200)
-#     link = models.URLField()
