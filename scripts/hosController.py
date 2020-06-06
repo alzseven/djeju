@@ -13,13 +13,15 @@ def run():
 
     args = int(input("번호 입력:"))
     if (args==CREATE_CODE):
-        num = input("구분코드의 번호를 입력해주세요.\n1. 국민안심병원\n2. 코로나 검사 실시기관\n3. 코로나 선별진료소 운영기관")
+        num = int(input("구분코드의 번호를 입력해주세요.\n1. 국민안심병원\n2. 코로나 검사 실시기관\n3. 코로나 선별진료소 운영기관\n"))
         if(num==1):
             createhos("A0")
         elif(num==2):
             createhos("97")
         elif(num==3):
             createhos("99")
+        else:
+            print("Invalid input")
     # elif (args==2):
     #     pass
     # elif (args==3):
