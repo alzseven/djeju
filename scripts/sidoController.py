@@ -51,16 +51,13 @@ def createsido():
     day_str = (str(now.day)) if now.day > 9 else ("0" + str(now.day))
     month_str = (str(now.month)) if now.month > 9 else ("0" + str(now.month))
     today_str = str(now.year) + month_str + day_str
-    print(today_str)
 
     key = "j%2BnuUay451ipAStppt2Uh7XE3aAUvC%2FtxdLMMHEreI7KR%2FY0%2B0%2BIAsODyasKyftwZXHwQ8SNTxD2QY5y2W8aXw%3D%3D"
     sidoUrl = "http://openapi.data.go.kr/openapi/service/rest/Covid19/getCovid19SidoInfStateJson?serviceKey=" \
             + key +"&pageNo=1&numOfRows=50&startCreateDt=" + today_str +"&endCreateDt=" + today_str
     sidoReq = requests.get(sidoUrl).content
     sidoxmlObj = xmltodict.parse(sidoReq)
-    if not sidoxmlObj['response']['body']:
-        print("No key")
-        sys.exit(1)
+    print(sidoxmlObj)
     if not sidoxmlObj['response']['body']['items']: 
         print("Sido : No Data Found")
         sys.exit(1)
