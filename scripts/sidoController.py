@@ -1,7 +1,7 @@
 import sys
 import requests
-import json
-# import xmltodict
+# import json
+import xmltodict
 # from django.contrib.gis.geos import fromstr
 from info.models import Sido
 from django.utils import timezone
@@ -52,8 +52,10 @@ def createsido():
     key = "j%2BnuUay451ipAStppt2Uh7XE3aAUvC%2FtxdLMMHEreI7KR%2FY0%2B0%2BIAsODyasKyftwZXHwQ8SNTxD2QY5y2W8aXw%3D%3D"
     sidoUrl = "http://openapi.data.go.kr/openapi/service/rest/Covid19/getCovid19SidoInfStateJson?serviceKey=" \
             + key +"&pageNo=1&numOfRows=50&startCreateDt=" + today_str +"&endCreateDt=" + today_str
-    sidoReq = requests.get(sidoUrl).json()
-    sidoObj = json.loads(str(sidoReq))
+    sidoReq = requests.get(sidoUrl).content
+
+    preReq = requests.get(preUrl).content
+    sidosmlObj = xmltodict.parse(sidoReq)
 
     if not sidoObj['response']['body']['items']: 
         print("Sido : No Data Found")
