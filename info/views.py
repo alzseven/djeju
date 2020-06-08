@@ -4,6 +4,7 @@ import json
 import requests
 from django.http import JsonResponse
 from info.models import Sido
+from django.core import serializers
 
 def sidoview(request):
     # djangoReq
@@ -17,12 +18,11 @@ def sidoview(request):
     result = json.loads(str(requests.get(url,headers=headers).text))
     cur_sido = result['documents'][0]['address']["region_1depth_name"] #?
 
+    # qs = Sido.objects.filter(gubun=cur_sido)
+    # data = qs.values()
 
-    qs = Sido.objects.filter(gubun=cur_sido)
-
-    data = qs.values()
-
-
+    data = serializers.serialize("json", Sido.objects.filter(gubun=cur_sido))
+    ret = { "sido_data": data }
     # data = Context(
     #     {"lat":float(cur_lat),
     #      "lng":float(cur_lng),
@@ -32,4 +32,4 @@ def sidoview(request):
 
     #TODO:Filtering at view?
     #return render(request, 'map/maskstore.html', {'strdata':data})
-    return JsonResponse(data, safe=False)
+    return JsonResponse(ret)#, safe=False)

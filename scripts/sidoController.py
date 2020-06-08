@@ -6,6 +6,7 @@ import xmltodict
 from info.models import Sido
 from django.utils import timezone
 
+
 # TODO:데이터 시작위치, 끝 위치 받아서 가져오게 해야함
 def run():
     CREATE_CODE = 1
@@ -48,13 +49,16 @@ def createsido():
 
     now = timezone.localtime()
     today_str = str(now.year) + str(now.month) + str(now.date)
+    print(today_str)
 
     key = "j%2BnuUay451ipAStppt2Uh7XE3aAUvC%2FtxdLMMHEreI7KR%2FY0%2B0%2BIAsODyasKyftwZXHwQ8SNTxD2QY5y2W8aXw%3D%3D"
     sidoUrl = "http://openapi.data.go.kr/openapi/service/rest/Covid19/getCovid19SidoInfStateJson?serviceKey=" \
             + key +"&pageNo=1&numOfRows=50&startCreateDt=" + today_str +"&endCreateDt=" + today_str
     sidoReq = requests.get(sidoUrl).content
     sidoxmlObj = xmltodict.parse(sidoReq)
-
+    if not sidoxmlObj['response']['body']:
+        print("No key")
+        sys.exit(1)
     if not sidoxmlObj['response']['body']['items']: 
         print("Sido : No Data Found")
         sys.exit(1)
