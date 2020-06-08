@@ -57,6 +57,7 @@ def createsido():
             + key +"&pageNo=1&numOfRows=50&startCreateDt=" + today_str +"&endCreateDt=" + today_str
     sidoReq = requests.get(sidoUrl).content
     sidoxmlObj = xmltodict.parse(sidoReq)
+    print("key: " + key)
     print(sidoxmlObj)
     if not sidoxmlObj['response']['body']['items']: 
         print("Sido : No Data Found")
