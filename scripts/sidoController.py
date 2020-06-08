@@ -3,6 +3,7 @@ import requests
 # import json
 import xmltodict
 # from django.contrib.gis.geos import fromstr
+from urllib import parse
 from info.models import Sido
 from django.utils import timezone
 
@@ -53,8 +54,14 @@ def createsido():
     today_str = str(now.year) + month_str + day_str
 
     key = "j%2BnuUay451ipAStppt2Uh7XE3aAUvC%2FtxdLMMHEreI7KR%2FY0%2B0%2BIAsODyasKyftwZXHwQ8SNTxD2QY5y2W8aXw%3D%3D"
-    sidoUrl = "http://openapi.data.go.kr/openapi/service/rest/Covid19/getCovid19SidoInfStateJson?serviceKey=" \
-            + key +"&pageNo=1&numOfRows=50&startCreateDt=" + today_str +"&endCreateDt=" + today_str
+
+    queryParams = '?' + parse.urlencode({ parse.quote_plus('ServiceKey') : key, parse.quote_plus('pageNo') : '1', \
+         parse.quote_plus('numOfRows') : '50', parse.quote_plus('startCreateDt') : today_str, parse.quote_plus('endCreateDt') : today_str })
+
+    sidoUrl = "http://openapi.data.go.kr/openapi/service/rest/Covid19/getCovid19SidoInfStateJson" + queryParams
+
+    # sidoUrl = "http://openapi.data.go.kr/openapi/service/rest/Covid19/getCovid19SidoInfStateJson?serviceKey=" \
+    #         + key +"&pageNo=1&numOfRows=50&startCreateDt=" + today_str +"&endCreateDt=" + today_str
     sidoReq = requests.get(sidoUrl).content
     sidoxmlObj = xmltodict.parse(sidoReq)
     print("key: " + key)
