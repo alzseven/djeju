@@ -48,7 +48,9 @@ def createsido():
     _stdday = ""
 
     now = timezone.localtime()
-    today_str = str(now.year) + str(now.month) + str(now.day)
+    day_str = (str(now.day)) if now.day > 9 else ("0" + str(now.day))
+    month_str = (str(now.month)) if now.month > 9 else ("0" + str(now.month))
+    today_str = str(now.year) + month_str + day_str
     print(today_str)
 
     key = "j%2BnuUay451ipAStppt2Uh7XE3aAUvC%2FtxdLMMHEreI7KR%2FY0%2B0%2BIAsODyasKyftwZXHwQ8SNTxD2QY5y2W8aXw%3D%3D"
