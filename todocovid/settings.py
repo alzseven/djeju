@@ -55,6 +55,7 @@ INSTALLED_APPS = [
     'django.contrib.gis',
     'django_extensions',
     'map',
+    'info',
 ]
 
 MIDDLEWARE = [

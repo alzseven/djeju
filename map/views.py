@@ -3,21 +3,19 @@ from django.template import Context
 import json
 import requests
 from map.models import Hospitals
-from django.http import HttpResponse
 
-from django.views import generic
+
 from django.contrib.gis.geos import fromstr
 from django.contrib.gis.db.models.functions import Distance
-from django.contrib.gis.db.models import Subquery
-from django.core import serializers
+
 
 # Create your views here.
 
-def map(request):
-    lat = request.GET.get('lat')
-    lng = request.GET.get('lng')
-    location = Context({"lat":float(lat), "lng":float(lng)})
-    return render(request,'map/map.html',{'location': location})
+# def map(request):
+#     lat = request.GET.get('lat')
+#     lng = request.GET.get('lng')
+#     location = Context({"lat":float(lat), "lng":float(lng)})
+#     return render(request,'map/map.html',{'location': location})
 
 def curmap(request,lat,lng):
     

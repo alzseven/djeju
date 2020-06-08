@@ -4,6 +4,7 @@ import xmltodict
 from django.contrib.gis.geos import fromstr
 from map.models import Hospitals
 
+# TODO:데이터 시작위치, 끝 위치 받아서 가져오게 해야함
 def run():
     CREATE_CODE = 1
     # READ_CODE = 2
@@ -53,7 +54,8 @@ def createhos(hosType):
     _spclAdmTyCd = ""
 
     for page_num in range(1,(int(totalCount)//numOfRows)+2):
-        relihosUrl = "http://apis.data.go.kr/B551182/pubReliefHospService/getpubReliefHospList?ServiceKey=" + key +"&pageNo=" + str(page_num) + "&numOfRows=" + str(numOfRows) + "&spclAdmTyCd=" + hosType
+        relihosUrl = "http://apis.data.go.kr/B551182/pubReliefHospService/getpubReliefHospList?ServiceKey=" \
+            + key +"&pageNo=" + str(page_num) + "&numOfRows=" + str(numOfRows) + "&spclAdmTyCd=" + hosType
         reliReq = requests.get(relihosUrl).content
         relixmlObj = xmltodict.parse(reliReq)
         reliData = relixmlObj['response']['body']['items']['item']
