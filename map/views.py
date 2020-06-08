@@ -11,12 +11,6 @@ from django.contrib.gis.db.models.functions import Distance
 
 # Create your views here.
 
-# def map(request):
-#     lat = request.GET.get('lat')
-#     lng = request.GET.get('lng')
-#     location = Context({"lat":float(lat), "lng":float(lng)})
-#     return render(request,'map/map.html',{'location': location})
-
 def curmap(request,lat,lng):
     
     location = Context({"lat":float(lat), "lng":float(lng)})

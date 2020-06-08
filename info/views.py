@@ -13,7 +13,7 @@ def sidoview(request):
 
     #TODO: request current_gubun with lat and lng 
     url = 'https://dapi.kakao.com/v2/local/search/address.json?'+ 'x=' + str(cur_lng) + '&y=' + str(cur_lat) + '&input_coord=WGS84'
-    headers = {"Authorization": "a2c80bf54c05154661e3f99e258519a6" }
+    headers = {"Authorization": "KakaoAK a2c80bf54c05154661e3f99e258519a6" }
     result = json.loads(str(requests.get(url,headers=headers).text))
     cur_sido = result['documents'][0]['address']["region_1depth_name"] #?
 
