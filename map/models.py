@@ -1,4 +1,4 @@
-from django.conf import settings
+# from django.conf import settings
 from django.contrib.gis.db import models as gismodels
 
 #from django.utils import timezone
