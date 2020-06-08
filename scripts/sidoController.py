@@ -53,15 +53,13 @@ def createsido():
     sidoUrl = "http://openapi.data.go.kr/openapi/service/rest/Covid19/getCovid19SidoInfStateJson?serviceKey=" \
             + key +"&pageNo=1&numOfRows=50&startCreateDt=" + today_str +"&endCreateDt=" + today_str
     sidoReq = requests.get(sidoUrl).content
+    sidoxmlObj = xmltodict.parse(sidoReq)
 
-    preReq = requests.get(preUrl).content
-    sidosmlObj = xmltodict.parse(sidoReq)
-
-    if not sidoObj['response']['body']['items']: 
+    if not sidoxmlObj['response']['body']['items']: 
         print("Sido : No Data Found")
         sys.exit(1)
     else:
-        sidoData = sidoObj['response']['body']['items']['item']
+        sidoData = sidoxmlObj['response']['body']['items']['item']
         
         for i in range(len(sidoData)):
 

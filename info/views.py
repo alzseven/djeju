@@ -20,7 +20,7 @@ def sidoview(request):
 
     qs = Sido.objects.filter(gubun=cur_sido)
 
-    
+    data = qs.values()
 
 
     # data = Context(
@@ -32,4 +32,4 @@ def sidoview(request):
 
     #TODO:Filtering at view?
     #return render(request, 'map/maskstore.html', {'strdata':data})
-    return JsonResponse(qs.values(), safe=False)
+    return JsonResponse(data, safe=False)
