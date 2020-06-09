@@ -16,12 +16,12 @@ def sidoview(request):
     url = 'https://dapi.kakao.com/v2/local/geo/coord2address.json?'+ 'x=' + str(cur_lng) + '&y=' + str(cur_lat) + '&input_coord=WGS84'
     headers = {"Authorization": "KakaoAK a2c80bf54c05154661e3f99e258519a6" }
     result = json.loads(str(requests.get(url,headers=headers).text))
-    cur_sido = result['documents'][0]['address']["region_1depth_name"] #?
+    cur_sido = result['documents'][0]['address']["region_1depth_name"][0:2] #?
 
     # qs = Sido.objects.filter(gubun=cur_sido)
     # data = qs.values()
 
-    data = serializers.serialize("json", Sido.objects.filter(gubun=cur_sido))
+    data = serializers.serialize("json", Sido.objects.filter(gubun__contains=cur_sido))
     # ret = { "sido_data": data }
     # data = Context(
     #     {"lat":float(cur_lat),
@@ -32,4 +32,4 @@ def sidoview(request):
 
     #TODO:Filtering at view?
     #return render(request, 'map/maskstore.html', {'strdata':data})
-    return JsonResponse(data)#, safe=False)
+    return JsonResponse(data, safe=False)
