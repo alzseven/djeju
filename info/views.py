@@ -22,7 +22,7 @@ def sidoview(request):
     # data = qs.values()
 
     data = serializers.serialize("json", Sido.objects.filter(gubun__contains=cur_sido))
-    ret = { cur_sido+"_data": data }
+    # ret = { cur_sido+"_data": data }
     # data = Context(
     #     {"lat":float(cur_lat),
     #      "lng":float(cur_lng),
@@ -32,4 +32,4 @@ def sidoview(request):
 
     #TODO:Filtering at view?
     #return render(request, 'map/maskstore.html', {'strdata':data})
-    return JsonResponse(ret, safe=False)
+    return JsonResponse(data, safe=False, json_dumps_params={'ensure_ascii':False})
