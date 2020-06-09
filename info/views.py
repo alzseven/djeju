@@ -19,7 +19,7 @@ def sidoview(request):
     cur_sido = result['documents'][0]['address']["region_1depth_name"][0:2] #?
 
     queryset = Sido.objects.filter(gubun__contains=cur_sido)
-    data = queryset.values()
+    data = list(queryset.values())
 
     # JsonSerializer = serializers.get_serializer("json")
     # json_serializer = JsonSerializer()
