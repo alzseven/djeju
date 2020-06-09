@@ -21,7 +21,7 @@ def sidoview(request):
     # qs = Sido.objects.filter(gubun=cur_sido)
     # data = qs.values()
 
-    data = serializers.serialize("json", Sido.objects.filter(gubun__contains=cur_sido))
+    data = serializers.serialize("json", Sido.objects.filter(gubun__contains=cur_sido)).getvalue()
     # ret = { cur_sido+"_data": data }
     # data = Context(
     #     {"lat":float(cur_lat),
