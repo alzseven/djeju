@@ -18,10 +18,16 @@ def sidoview(request):
     result = json.loads(str(requests.get(url,headers=headers).text))
     cur_sido = result['documents'][0]['address']["region_1depth_name"][0:2] #?
 
-    # qs = Sido.objects.filter(gubun=cur_sido)
+    queryset = Sido.objects.filter(gubun__contains=cur_sido)
     # data = qs.values()
 
-    data = serializers.serialize("json", Sido.objects.filter(gubun__contains=cur_sido)).getvalue()
+    JsonSerializer = serializers.get_serializer("json")
+    json_serializer = JsonSerializer()
+    json_serializer.serialize(queryset)
+    data = xml_serializer.getvalue()
+
+
+    # data = serializers.serialize("json", Sido.objects.filter(gubun__contains=cur_sido)).getvalue()
     # ret = { cur_sido+"_data": data }
     # data = Context(
     #     {"lat":float(cur_lat),
