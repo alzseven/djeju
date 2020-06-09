@@ -14,7 +14,7 @@ class Sido(models.Model):
     isollingCnt = models.IntegerField() #격리해제
     localOccCnt = models.IntegerField() #격리중
     overFlowCnt = models.IntegerField() #해외유입(잠정)
-    qur_rate = models.FloatField() #10만명당 발생률
+    qur_rate = models.CharField(max_length=30) #10만명당 발생률
     std_day = models.CharField(max_length=30) #기준일시
 
     def __str__(self):

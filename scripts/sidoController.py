@@ -45,7 +45,7 @@ def createsido():
     _isollingCnt = 0
     _localOccCnt = 0
     _overFlowCnt = 0
-    _qurrate = 0.0
+    _qurrate = ""
     _stdday = ""
 
     now = timezone.localtime()
@@ -93,7 +93,7 @@ def createsido():
             _isollingCnt = int(sidoData[i]['isolIngCnt'])
             _localOccCnt = int(sidoData[i]['localOccCnt'])
             _overFlowCnt = int(sidoData[i]['overFlowCnt'])
-            _qurrate = float(sidoData[i]['qurRate'])
+            _qurrate = sidoData[i]['qurRate']
             _stdday = sidoData[i]['stdDay']
 
             Sido(seq = _seq,
