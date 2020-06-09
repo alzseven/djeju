@@ -24,7 +24,7 @@ def sidoview(request):
     JsonSerializer = serializers.get_serializer("json")
     json_serializer = JsonSerializer()
     json_serializer.serialize(queryset)
-    data = xml_serializer.getvalue()
+    data = json_serializer.getvalue()
 
 
     # data = serializers.serialize("json", Sido.objects.filter(gubun__contains=cur_sido)).getvalue()
