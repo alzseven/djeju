@@ -93,8 +93,8 @@ def createsido():
             _isollingCnt = int(sidoData[i]['isolIngCnt'])
             _localOccCnt = int(sidoData[i]['localOccCnt'])
             _overFlowCnt = int(sidoData[i]['overFlowCnt'])
-            _qur_rate = float(sidoData[i]['qurRate'])
-            _std_day = sidoData[i]['stdDay']
+            _qurrate = float(sidoData[i]['qurRate'])
+            _stdday = sidoData[i]['stdDay']
 
             Sido(seq = _seq,
                 create_dt = _createdt,
@@ -108,6 +108,6 @@ def createsido():
                 isollingCnt = _isollingCnt,
                 localOccCnt = _localOccCnt,
                 overFlowCnt = _overFlowCnt,
-                qur_rate = _qur_rate,
-                std_day = _std_day,
+                qur_rate = _qurrate,
+                std_day = _stdday,
                 ).save()
