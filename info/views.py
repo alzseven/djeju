@@ -47,4 +47,4 @@ def sidoview(request):
 
     #TODO:Filtering at view?
     #return render(request, 'map/maskstore.html', {'strdata':data})
-    return JsonResponse(data, safe=False, json_dumps_params={'ensure_ascii':False})
+    return JsonResponse(data.dumps(), safe=False, json_dumps_params={'ensure_ascii':False})
