@@ -23,11 +23,11 @@ def sidoview(request):
 
     data = Context(
         {
-            "keys":["시도명","확진","격리해제","사망"]
-            "시도명": values["gubun"]
-            "확진": values["defCnt"]
-            "격리해제": values["isol_clear_cnt"]
-            "사망": values["death_cnt"]
+            "keys":["시도명","확진","격리해제","사망"],
+            "시도명": values["gubun"],
+            "확진": values["defCnt"],
+            "격리해제": values["isol_clear_cnt"],
+            "사망": values["death_cnt"],
         }
     )
     # JsonSerializer = serializers.get_serializer("json")
