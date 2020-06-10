@@ -19,15 +19,15 @@ def sidoview(request):
     cur_sido = result['documents'][0]['address']["region_1depth_name"][0:2] #?
 
     queryset = Sido.objects.filter(gubun__contains=cur_sido)
-    values = list(queryset.values("gubun","defCnt","isol_clear_cnt","death_cnt"))
+    values = queryset.values("gubun","defCnt","isol_clear_cnt","death_cnt")
 
     data = Context(
         {
             "keys":["시도명","확진","격리해제","사망"],
-            "시도명": values[2],
-            "확진": values[1],
-            "격리해제": values[3],
-            "사망": values[0],
+            "시도명": values["gubun"],
+            "확진": values["defCnt"],
+            "격리해제": values["isol_clear_cnt"],
+            "사망": values["death_cnt"],
         }
     )
     # JsonSerializer = serializers.get_serializer("json")
