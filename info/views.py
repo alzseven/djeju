@@ -21,15 +21,13 @@ def sidoview(request):
     queryset = Sido.objects.filter(gubun__contains=cur_sido)
     values = list(queryset.values("gubun","defCnt","isol_clear_cnt","death_cnt"))
 
-    data = Context(
-        {
+    data = {
             "keys":["시도명","확진","격리해제","사망"],
             "시도명": values[0]["gubun"],
             "확진": values[0]["defCnt"],
             "격리해제": values[0]["isol_clear_cnt"],
             "사망": values[0]["death_cnt"],
         }
-    )
     # JsonSerializer = serializers.get_serializer("json")
     # json_serializer = JsonSerializer()
     # json_serializer.serialize(queryset)
@@ -47,4 +45,4 @@ def sidoview(request):
 
     #TODO:Filtering at view?
     #return render(request, 'map/maskstore.html', {'strdata':data})
-    return JsonResponse(json.dumps(data), safe=False, json_dumps_params={'ensure_ascii':False})
+    return JsonResponse(data, safe=False, json_dumps_params={'ensure_ascii':False})
