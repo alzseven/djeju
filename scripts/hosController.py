@@ -14,15 +14,7 @@ def run():
 
     args = int(input("번호 입력:"))
     if (args==CREATE_CODE):
-        num = int(input("구분코드의 번호를 입력해주세요.\n1. 국민안심병원\n2. 코로나 검사 실시기관\n3. 코로나 선별진료소 운영기관\n"))
-        if(num==1):
-            createhos("A0")
-        elif(num==2):
-            createhos("97")
-        elif(num==3):
-            createhos("99")
-        else:
-            print("Invalid input")
+        createhos()
     # elif (args==2):
     #     pass
     # elif (args==3):
@@ -35,10 +27,10 @@ def run():
     else:
         print("Invalid input")
 
-def createhos(hosType):
+def createhos():
     numOfRows = 100
     key = "j%2BnuUay451ipAStppt2Uh7XE3aAUvC%2FtxdLMMHEreI7KR%2FY0%2B0%2BIAsODyasKyftwZXHwQ8SNTxD2QY5y2W8aXw%3D%3D"
-    preUrl = "http://apis.data.go.kr/B551182/pubReliefHospService/getpubReliefHospList?ServiceKey=" + key + "&pageNo=1&numOfRows=10&spclAdmTyCd=" + hosType
+    preUrl = "http://apis.data.go.kr/B551182/pubReliefHospService/getpubReliefHospList?ServiceKey=" + key + "&pageNo=1&numOfRows=10"
     preReq = requests.get(preUrl).content
     prexmlObj = xmltodict.parse(preReq)
     totalCount = prexmlObj['response']['body']['totalCount']
@@ -53,9 +45,17 @@ def createhos(hosType):
     _adtFrDd = ""
     _spclAdmTyCd = ""
 
-    for page_num in range(1,(int(totalCount)//numOfRows)+2):
+    print("총 데이터 수: " + totalCount)
+    input_min = int(input("입력을 시작할 페이지: (페이지 당 데이터 100개"))
+    input_max = int(input("입력을 종료할 페이지: (페이지 당 데이터 100개"))
+    if(input_max > (int(totalCount)//numOfRows) + 2 or input_min < 1):
+        print("잘못된 입력입니다.")
+        sys.exit(1)
+
+    # 1,(int(totalCount)//numOfRows)+2
+    for page_num in range(input_min, input_max):
         relihosUrl = "http://apis.data.go.kr/B551182/pubReliefHospService/getpubReliefHospList?ServiceKey=" \
-            + key +"&pageNo=" + str(page_num) + "&numOfRows=" + str(numOfRows) + "&spclAdmTyCd=" + hosType
+            + key +"&pageNo=" + str(page_num) + "&numOfRows=" + str(numOfRows)
         reliReq = requests.get(relihosUrl).content
         relixmlObj = xmltodict.parse(reliReq)
         reliData = relixmlObj['response']['body']['items']['item']
