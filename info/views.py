@@ -48,7 +48,7 @@ def sidoview(request):
     return JsonResponse(data, safe=False, json_dumps_params={'ensure_ascii':False})
 
 def appinfo(request):
-    d = {[{'funcName':"공적 마스크 판매처",
+    d = [{'funcName':"공적 마스크 판매처",
         'ViewType': "WebView",
         'requirements': "none",
         'reqUrl': "https://injejuweb.herokuapp.com/map/maskstore"},
@@ -59,7 +59,7 @@ def appinfo(request):
         {'funcName':"시도별 감염 현황",
         'ViewType': "ListView",
         'requirements': "location",
-        'reqUrl': "http://injejuweb.herokuapp.com/info/sido"},        
+        'reqUrl': "http://injejuweb.herokuapp.com/info/sido"}        
         ]
-    }
+    
     return JsonResponse(d, safe=False, json_dumps_params={'ensure_ascii':False})
