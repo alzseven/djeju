@@ -46,3 +46,20 @@ def sidoview(request):
     #TODO:Filtering at view?
     #return render(request, 'map/maskstore.html', {'strdata':data})
     return JsonResponse(data, safe=False, json_dumps_params={'ensure_ascii':False})
+
+def appinfo(request):
+    d = {[{'funcName':"공적 마스크 판매처",
+        'ViewType': "WebView",
+        'requirements': "none",
+        'reqUrl': "https://injejuweb.herokuapp.com/map/maskstore"},
+        {'funcName':"안심 병원 현황",
+        'ViewType': "WebView",
+        'requirements': "none",
+        'reqUrl':"https://injejuweb.herokuapp.com/map/reliefhospitals"},
+        {'funcName':"시도별 감염 현황",
+        'ViewType': "ListView",
+        'requirements': "location",
+        'reqUrl': "http://injejuweb.herokuapp.com/info/sido"},        
+        ]
+    }
+    return JsonResponse(d, safe=False, json_dumps_params={'ensure_ascii':False})
