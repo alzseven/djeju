@@ -76,15 +76,15 @@ def createhos():
             _telno = reliData[i]['telno']
             
             # if reliData[i]['spclAdmTyCd']
-            if Hospitals.object.filter(telno = _telno).exists():
+            if Hospitals.objects.filter(telno = _telno).exists():
                 if reliData[i]['spclAdmTyCd'] == "A0":
-                    Hospitals.object.filter(telno = _telno).update(isReliefhos = True)
+                    Hospitals.objects.filter(telno = _telno).update(isReliefhos = True)
                     continue
                 elif reliData[i]['spclAdmTyCd'] == "97":
-                    Hospitals.object.filter(telno = _telno).update(isInspect = True)
+                    Hospitals.objects.filter(telno = _telno).update(isInspect = True)
                     continue
                 elif reliData[i]['spclAdmTyCd'] == "99":
-                    Hospitals.object.filter(telno = _telno).update(isTriage = True)
+                    Hospitals.objects.filter(telno = _telno).update(isTriage = True)
                     continue
             # _spclAdmTyCd = reliData[i]['spclAdmTyCd']    
             else:
