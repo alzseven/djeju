@@ -40,7 +40,7 @@ def createhos():
     print("총 데이터 수: " + totalCount)
     input_min = int(input("입력을 시작할 페이지: (페이지 당 데이터 100개"))
     input_max = int(input("입력을 종료할 페이지: (페이지 당 데이터 100개"))
-    if(input_max >= (int(totalCount)//numOfRows) + 1 or input_min < 1):
+    if(input_max > (int(totalCount)//numOfRows) + 2 or input_min < 1):
         print("잘못된 입력입니다.")
         sys.exit(1)
 
