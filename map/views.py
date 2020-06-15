@@ -70,7 +70,8 @@ def hospmap(request):
     # context_object_name = "shops"
     # queryset = Hospitals.objects.filter(float(Distance("location",user_location).m)< dis) #어짜피 안에 있는거 다 꺼내면 좌표 기반으로 찍힘
     # queryset = Hospitals.objects.annotate(distance=Distance("location", user_location)).filter(distance__m <= dis)
-    qs = Hospitals.objects.filter(location__distance_lte=(user_location, dis)).values('latitude','longtitude','yadmNm','hospTyTpCd','telno','adtFrDd','spclAdmTyCd')
+    qs = Hospitals.objects.filter(location__distance_lte=(user_location, dis))\
+        .values('latitude','longtitude','yadmNm','hospTyTpCd','telno','adtFrDd','isReliefhos','isInspect','isTriage')
 
     # qs = queryset.filter(distance.m < dis).order_by("distance") #.filter(distance).order_by("distance")[0:3]
     # qs = list(filter(lambda hospitals,values: hospitals.distance.m <= dis), list(queryset))
