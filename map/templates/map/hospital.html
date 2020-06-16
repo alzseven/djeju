@@ -1,11 +1,40 @@
+{% load static %}
 <html>
 	<head>
 		<meta charset="utf-8"/>
 		<title>안심병원 위치</title>
+		<style>
+			#mapwrap{position:relative;overflow:hidden;}
+			.category, .category *{margin:0;padding:0;color:#000;}   
+			.category {position:absolute;overflow:hidden;top:10px;left:10px;width:150px;height:50px;z-index:10;border:1px solid black;font-family:'Malgun Gothic','맑은 고딕',sans-serif;font-size:12px;text-align:center;background-color:#fff;}
+			.category .menu_selected {background:#FF5F4A;color:#fff;border-left:1px solid #915B2F;border-right:1px solid #915B2F;margin:0 -1px;} 
+			.category li{list-style:none;float:left;width:50px;height:45px;padding-top:5px;cursor:pointer;} 
+			.category .ico_comm {display:block;margin:0 auto 2px;width:22px;height:26px;background:url("{% static 'reliefhosmarker.png' %}") no-repeat;} 
+			.category .ico_reliHos {background-position: 0px 0;}  
+			.category .ico_inspect {background-position: 0px -297px;}   
+			.category .ico_triage {background-position: 0px -445.5px;} 
+		  </style>
 	</head>
 	<body>
-		{% load static %}
-		<div id="map" style="width:100%;height:100%;"></div>
+		
+		<div id="map" style="width:100%;height:100%;">
+			<div class="category">
+				<ul>
+					<li id="reliHos" onclick="changeMarker('reliHos')">
+						<span class="ico_comm ico_reliHos"></span>
+						안심병원
+					</li>
+					<li id="storeMenu" onclick="changeMarker('inspect')">
+						<span class="ico_comm ico_inspect"></span>
+						검사기관
+					</li>
+					<li id="triageMenu" onclick="changeMarker('triage')">
+						<span class="ico_comm ico_triage"></span>
+						선별진료소
+					</li>
+				</ul>
+			</div>
+		</div>
 		<script type="text/javascript" src="https://dapi.kakao.com/v2/maps/sdk.js?appkey=4e63037725e2b7837bb5c426532533f0"></script>
 		<script>
 			var _lat = parseFloat('{{ data.lat | escapejs }}'),
@@ -20,58 +49,207 @@
 
 			var data = JSON.parse('{{ data.hosdata | escapejs }}');
 
-			var hos_data = [];
-			for(var i=0; i<data.length; i++) {
-			 	hos_data[i] = [	data[i].latitude,
-			 					data[i].longtitude,
-			 					data[i].yadmNm,
-			 					data[i].telno];
-			}
+			// var hos_data = [];
+			// for(var i=0; i<data.length; i++) {
+			//  	hos_data[i] = [	data[i].latitude,
+			//  					data[i].longtitude,
+			//  					data[i].yadmNm,
+			//  					data[i].telno];
+			// }
 
 			var map = new kakao.maps.Map(container, options);
 
-			// var markerImageSrc = "{% static 'maskcol.png' %}";
 			
-			for(var i=0;i<hos_data.length;i++){
-			// 	if(str_data[i][3] != "break"){
-			    var markerPosition  = new kakao.maps.LatLng(hos_data[i][0],hos_data[i][1]); 
+			
+			var reliHosDatas = [],
+				inspectDatas = [],
+				triageDatas = [];
+
+			//('latitude','longtitude','yadmNm','hospTyTpCd','telno','adtFrDd','isReliefhos','isInspect','isTriage')
+			for(var i=0;i<data.length;i++){
+			    var markerPosition  = new kakao.maps.LatLng(hos_data[i][0],hos_data[i][1]);
 			// 		var imageNum = 160;
-			// 		switch (str_data[i][3]) {
-			// 			case "plenty":
-			// 				imageNum = 0;
-			// 				break;
-			// 			case "some":
-			// 				imageNum = 40;
-			// 				break;
-			// 			case "few":
-			// 				imageNum = 80;
-			// 				break;
-			// 			case "empty":
-			// 				imageNum = 120;
-			// 			default:
-			// 				break;
-			// 		}					
+					if (data[i].isReliefhos == true){
+						reliHosDatas.push(data[i]);
+					}
+					if (data[i].isInspect == true){
+						inspectDatas.push(data[i]);
+					}
+					if (data[i].isTriage == true){
+						triageDatas.push(data[i]);
+					}
+					
 			// 		var imageSize = new kakao.maps.Size(22, 26),
 			// 		imageOptions = {  
 			// 			spriteOrigin: new kakao.maps.Point(0, imageNum),    
 			// 			spriteSize: new kakao.maps.Size(40, 160)  
 			// 		};     
 			// 		var markerImage = createMarkerImage(markerImageSrc, imageSize, imageOptions),    
-			 	var	marker = new kakao.maps.Marker({position: markerPosition});
-			 	marker.setMap(map);
-			// 	}
-			// }
-			// function createMarkerImage(src, size, options) {
-			// 	var markerImage = new kakao.maps.MarkerImage(src, size, options);
-			// 	return markerImage;            
-			// }
-			// function createMarker(position, image) {
-			// 	var marker = new kakao.maps.Marker({
-			// 		position: position,
-			// 		image: image
-			// 	});
-			// 	return marker;  
-			}  
+			 	//var	marker = new kakao.maps.Marker({position: markerPosition});
+			 	//marker.setMap(map);
+
+			}
+			//TODO: 이 아래부터 할것
+			var markerImageSrc = "{% static 'reliefhosmarker.png' %}";
+				reliHosMarkers = [], // 커피숍 마커 객체를 가지고 있을 배열입니다
+				inspectMarkers = [], // 편의점 마커 객체를 가지고 있을 배열입니다
+				triageMarkers = []; // 주차장 마커 객체를 가지고 있을 배열입니다
+
+    
+			createreliHosMarkers(); // 커피숍 마커를 생성하고 커피숍 마커 배열에 추가합니다
+			createinspectMarkers(); // 편의점 마커를 생성하고 편의점 마커 배열에 추가합니다
+			createtriageMarkers(); // 주차장 마커를 생성하고 주차장 마커 배열에 추가합니다
+
+			changeMarker('reliHos'); // 지도에 커피숍 마커가 보이도록 설정합니다    
+
+
+			// 마커이미지의 주소와, 크기, 옵션으로 마커 이미지를 생성하여 리턴하는 함수입니다
+			function createMarkerImage(src, size, options) {
+				var markerImage = new kakao.maps.MarkerImage(src, size, options);
+				return markerImage;            
+			}
+
+			// 좌표와 마커이미지를 받아 마커를 생성하여 리턴하는 함수입니다
+			function createMarker(position, image) {
+				var marker = new kakao.maps.Marker({
+					position: position,
+					image: image
+				});
+				
+				return marker;  
+			}   
+			
+			// 커피숍 마커를 생성하고 커피숍 마커 배열에 추가하는 함수입니다
+			function createreliHosMarkers() {
+				
+				for (var i = 0; i < reliHosDatas.length; i++) {  
+					var hostypenum = (reliHosMarkers[i].hospTyTpCd == 'A') ? 0 : 148.5 ;
+
+					
+					var imageSize = new kakao.maps.Size(54, 74),
+						imageOptions = {  
+							spriteOrigin: new kakao.maps.Point(0, hostypenum),    
+							spriteSize: new kakao.maps.Size(108, 594)  
+						};     
+					
+					var markerPos = new kakao.maps.LatLng(reliHosDatas[i].latitude, reliHosDatas[i].longtitude);
+					// 마커이미지와 마커를 생성합니다
+					var markerImage = createMarkerImage(markerImageSrc, imageSize, imageOptions),    
+						marker = createMarker(markerPos, markerImage);  
+					
+					// 생성된 마커를 커피숍 마커 배열에 추가합니다
+					reliHosMarkers.push(marker);
+				}     
+			}
+
+			// 커피숍 마커들의 지도 표시 여부를 설정하는 함수입니다
+			function setreliHosMarkers(map) {        
+				for (var i = 0; i < reliHosMarkers.length; i++) {  
+					reliHosMarkers[i].setMap(map);
+				}        
+			}
+
+			// 편의점 마커를 생성하고 편의점 마커 배열에 추가하는 함수입니다
+			function createinspectMarkers() {
+				for (var i = 0; i < inspectDatas.length; i++) {
+					
+					var imageSize = new kakao.maps.Size(54, 74),
+						imageOptions = {   
+							spriteOrigin: new kakao.maps.Point(0, 297),    
+							spriteSize: new kakao.maps.Size(108, 594)   
+						};       
+				
+					var markerPos = new kakao.maps.LatLng(inspectDatas[i].latitude, inspectDatas[i].longtitude);
+					// 마커이미지와 마커를 생성합니다
+					var markerImage = createMarkerImage(markerImageSrc, imageSize, imageOptions),    
+						marker = createMarker(markerPos, markerImage);  
+
+					// 생성된 마커를 편의점 마커 배열에 추가합니다
+					inspectMarkers.push(marker);    
+				}        
+			}
+
+			// 편의점 마커들의 지도 표시 여부를 설정하는 함수입니다
+			function setinspectMarkers(map) {        
+				for (var i = 0; i < inspectMarkers.length; i++) {  
+					inspectMarkers[i].setMap(map);
+				}        
+			}
+
+			// 주차장 마커를 생성하고 주차장 마커 배열에 추가하는 함수입니다
+			function createtriageMarkers() {
+				for (var i = 0; i < triageDatas.length; i++) {
+					
+					var imageSize = new kakao.maps.Size(54, 74),
+						imageOptions = {   
+							spriteOrigin: new kakao.maps.Point(0, 445.5),    
+							spriteSize: new kakao.maps.Size(108, 594) 
+						};       
+				
+					var markerPos = new kakao.maps.LatLng(triageDatas[i].latitude, triageDatas[i].longtitude);
+					// 마커이미지와 마커를 생성합니다
+					var markerImage = createMarkerImage(markerImageSrc, imageSize, imageOptions),    
+						marker = createMarker(markerPos, markerImage);  
+
+					// 생성된 마커를 주차장 마커 배열에 추가합니다
+					triageMarkers.push(marker);        
+				}                
+			}
+
+			// 주차장 마커들의 지도 표시 여부를 설정하는 함수입니다
+			function settriageMarkers(map) {        
+				for (var i = 0; i < triageMarkers.length; i++) {  
+					triageMarkers[i].setMap(map);
+				}        
+			}
+
+			// 카테고리를 클릭했을 때 type에 따라 카테고리의 스타일과 지도에 표시되는 마커를 변경합니다
+			function changeMarker(type){
+				
+				var reliHosMenu = document.getElementById('reliHosMenu');
+				var inspectMenu = document.getElementById('inspectMenu');
+				var triageMenu = document.getElementById('triageMenu');
+				
+				// 커피숍 카테고리가 클릭됐을 때
+				if (type === 'reliHos') {
+				
+					// 커피숍 카테고리를 선택된 스타일로 변경하고
+					reliHosMenu.className = 'menu_selected';
+					
+					// 편의점과 주차장 카테고리는 선택되지 않은 스타일로 바꿉니다
+					inspectMenu.className = '';
+					triageMenu.className = '';
+					
+					// 커피숍 마커들만 지도에 표시하도록 설정합니다
+					setreliHosMarkers(map);
+					setinspectMarkers(null);
+					settriageMarkers(null);
+					
+				} else if (type === 'inspect') { // 편의점 카테고리가 클릭됐을 때
+				
+					// 편의점 카테고리를 선택된 스타일로 변경하고
+					reliHosMenu.className = '';
+					inspectMenu.className = 'menu_selected';
+					triageMenu.className = '';
+					
+					// 편의점 마커들만 지도에 표시하도록 설정합니다
+					setreliHosMarkers(null);
+					setinspectMarkers(map);
+					settriageMarkers(null);
+					
+				} else if (type === 'triage') { // 주차장 카테고리가 클릭됐을 때
+				
+					// 주차장 카테고리를 선택된 스타일로 변경하고
+					reliHosMenu.className = '';
+					inspectMenu.className = '';
+					triageMenu.className = 'menu_selected';
+					
+					// 주차장 마커들만 지도에 표시하도록 설정합니다
+					setreliHosMarkers(null);
+					setinspectMarkers(null);
+					settriageMarkers(map);  
+				}    
+			} 
 	</script>
 	</body>
 </html>
