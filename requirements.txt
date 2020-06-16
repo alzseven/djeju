@@ -1,3 +1,4 @@
+APScheduler==3.6.3
 asgiref==3.2.7
 astroid==2.4.1
 certifi==2020.4.5.1
@@ -19,6 +20,7 @@ requests==2.23.0
 six==1.15.0
 sqlparse==0.3.1
 toml==0.10.1
+tzlocal==2.1
 urllib3==1.25.9
 whitenoise==5.1.0
 wrapt==1.12.1

@@ -11,8 +11,8 @@ class Sido(models.Model):
     gubun_en = models.CharField(max_length=30) #시도명(영어)
     inc_dec = models.IntegerField() #전일대비 증감수
     isol_clear_cnt = models.IntegerField() #격리 해제 수
-    isollingCnt = models.IntegerField() #격리해제
-    localOccCnt = models.IntegerField() #격리중
+    isollingCnt = models.IntegerField() #격리중
+    localOccCnt = models.IntegerField() #지역발생(잠정)
     overFlowCnt = models.IntegerField() #해외유입(잠정)
     qur_rate = models.CharField(max_length=30) #10만명당 발생률
     std_day = models.CharField(max_length=30) #기준일시
