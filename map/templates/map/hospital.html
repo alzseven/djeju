@@ -1,5 +1,5 @@
-{% load static %}
 <html>
+	{% load static %}
 	<head>
 		<meta charset="utf-8"/>
 		<title>안심병원 위치</title>
@@ -16,8 +16,8 @@
 		  </style>
 	</head>
 	<body>
-		
-		<div id="map" style="width:100%;height:100%;">
+	<div id="mapwrap"> 
+		<div id="map" style="width:100%;height:100%;"></div>
 			<div class="category">
 				<ul>
 					<li id="reliHosMenu" onclick="changeMarker('reliHos')">
