@@ -165,9 +165,9 @@ def updatehos():
     # 1,(int(totalCount)//numOfRows)+2
     for page_num in range(input_min, input_max):
         _hospTyTpCd = ""
-        
+
         relihosUrl = "http://apis.data.go.kr/B551182/pubReliefHospService/getpubReliefHospList?ServiceKey=" \
-            + key +"&pageNo=" + str(page_num) + "&numOfRows=" + str(numOfRows) + "&spclAdmTyCd=A0"
+            + key +"&pageNo=" + str(page_num) + "&numOfRows=" + str(numOfRows)
         reliReq = requests.get(relihosUrl).content
         relixmlObj = xmltodict.parse(reliReq)
         reliData = relixmlObj['response']['body']['items']['item']
@@ -180,6 +180,6 @@ def updatehos():
             
             # if reliData[i]['spclAdmTyCd']
             if Hospitals.objects.filter(telno = _telno).exists():
-                if reliData[i]['spclAdmTyCd'] == "A0":
+                if str(reliData[i]['isReliefhos']) == "True":
                     Hospitals.objects.filter(telno = _telno).update(hospTyTpCd = _hospTyTpCd)
-                    continue
+                    print(reliData[i]['yadmNm'])
