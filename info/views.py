@@ -53,7 +53,7 @@ def appinfo(request):
         'ViewType': "WebView",
         'requirements': "none",
         'reqUrl': "https://injejuweb.herokuapp.com/map/maskstore"},
-        {'funcName':"안심 병원 현황",
+        {'funcName':"코로나-19관련 병원정보",
         'ViewType': "WebView",
         'requirements': "none",
         'reqUrl':"https://injejuweb.herokuapp.com/map/reliefhospitals"},
