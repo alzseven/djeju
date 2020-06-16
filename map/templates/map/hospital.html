@@ -20,7 +20,7 @@
 		<div id="map" style="width:100%;height:100%;">
 			<div class="category">
 				<ul>
-					<li id="reliHos" onclick="changeMarker('reliHos')">
+					<li id="reliHosMenu" onclick="changeMarker('reliHos')">
 						<span class="ico_comm ico_reliHos"></span>
 						안심병원
 					</li>
@@ -67,17 +67,17 @@
 
 			//('latitude','longtitude','yadmNm','hospTyTpCd','telno','adtFrDd','isReliefhos','isInspect','isTriage')
 			for(var i=0;i<data.length;i++){
-			    var markerPosition  = new kakao.maps.LatLng(hos_data[i][0],hos_data[i][1]);
+			//    var markerPosition  = new kakao.maps.LatLng(hos_data[i][0],hos_data[i][1]);
 			// 		var imageNum = 160;
-					if (data[i].isReliefhos == true){
-						reliHosDatas.push(data[i]);
-					}
-					if (data[i].isInspect == true){
-						inspectDatas.push(data[i]);
-					}
-					if (data[i].isTriage == true){
-						triageDatas.push(data[i]);
-					}
+				if (data[i].isReliefhos == true){
+					reliHosDatas.push(data[i]);
+				}
+				if (data[i].isInspect == true){
+					inspectDatas.push(data[i]);
+				}
+				if (data[i].isTriage == true){
+					triageDatas.push(data[i]);
+				}
 					
 			// 		var imageSize = new kakao.maps.Size(22, 26),
 			// 		imageOptions = {  
