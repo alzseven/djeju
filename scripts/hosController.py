@@ -180,6 +180,6 @@ def updatehos():
             
             # if reliData[i]['spclAdmTyCd']
             if Hospitals.objects.filter(telno = _telno).exists():
-                if str(reliData[i]['isReliefhos']) == "True":
+                if str(reliData[i]['spclAdmTyCd']) == "A0":
                     Hospitals.objects.filter(telno = _telno).update(hospTyTpCd = _hospTyTpCd)
                     print(reliData[i]['yadmNm'])
