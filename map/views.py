@@ -58,9 +58,9 @@ def hospmap(request):
 
     dis = 0
     if(lvl>0 and lvl<5):
-        dis = 125 * 2**(lvl+1)
+        dis = 250 * 2**(lvl+1)
     elif(lvl>=5):
-        dis = 5000 #TODO:Set New Max
+        dis = 10000 #TODO:Set New Max
     # else:
     #     #invalid value
     #     dis = 0
