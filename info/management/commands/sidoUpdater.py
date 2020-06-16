@@ -7,7 +7,7 @@ from apscheduler.schedulers.blocking import BlockingScheduler
 
 sched = BlockingScheduler()
 
-@sched.scheduled_job('cron', hour=10, minute=30)
+@sched.scheduled_job('cron', hour=11)
 def scheduled_job():
     # _seq = 0
     # _createdt = ""
@@ -38,13 +38,12 @@ def scheduled_job():
     sidoxmlObj = xmltodict.parse(sidoReq)
 
     isValidReq = False
-    for(i in range(0,11)){
+    for i in range(0,11):
         if sidoxmlObj['response']['header']['resultCode'] == '00':
             isValidReq = True
             break
         sidoReq = requests.get(sidoUrl, params = parameters).content
         sidoxmlObj = xmltodict.parse(sidoReq)
-    }
     if not isValidReq: 
         print("Sido: Invalid Request")
     else:
