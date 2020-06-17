@@ -9,7 +9,7 @@
 			.fixed{ position: absolute; right: 10px; bottom: 2px; color: rgb(0, 0, 0); width: 150px; text-align:end;font-size:12px;} 
 			.category {position:absolute;overflow:hidden;top:10px;left:10px;width:120px;height:55px;z-index:10;border:1px solid black;font-family:'Malgun Gothic','맑은 고딕',sans-serif;font-size:12px;text-align:center;background-color:#fff;}
 			.category .menu_selected {background:#91ff00;color:#fff;border-left:1px solid #2f3191;border-right:1px solid #2f3191;margin:0 -1px;} 
-			.category li{list-style:none;float:left;width:40px;height:50px; padding-bottom:10px;cursor:pointer;} 
+			.category li{list-style:none;float:left;width:40px;height:50px; padding-top:10px;cursor:pointer;} 
 			.category .ico_comm {display:block;margin:0 auto 2px;width:108px;height:148.5px;background:url("{% static 'reliefhosmarker.png' %}") no-repeat;} 
 			.category .ico_reliHos {background-position: -33px -52px;}  
 			.category .ico_inspect {background-position: -31px -349px;}   
@@ -25,16 +25,36 @@
 			<div class="category">
 				<ul>
 					<li id="reliHosMenu" onclick="changeMarker('reliHos')">
+						<p style="z-index: 1;
+						top: 30px;
+						text-align: center;
+						color: rgb(0, 0, 0);
+						white-space: nowrap;
+						font-size: smaller;
+						color: white;
+						position: relative;"> 안심병원 </p>
 						<span class="ico_comm ico_reliHos"></span>
-						안심병원
 					</li>
 					<li id="inspectMenu" onclick="changeMarker('inspect')">
+						<p style="z-index: 1;
+						top: 30px;
+						text-align: center;
+						color: rgb(0, 0, 0);
+						white-space: nowrap;
+						font-size: smaller;
+						color: white;
+						position: relative;"> 검사기관 </p>
 						<span class="ico_comm ico_inspect"></span>
-						검사기관
 					</li>
 					<li id="triageMenu" onclick="changeMarker('triage')">
+						<p style="z-index: 1;
+						top: 30px;
+						text-align: center;
+						white-space: nowrap;
+						font-size: smaller;
+						color: white;
+						position: relative;"> 선별진료소 </p>
 						<span class="ico_comm ico_triage"></span>
-						선별진료소
 					</li>
 				</ul>
 				
