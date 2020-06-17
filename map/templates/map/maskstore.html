@@ -35,19 +35,24 @@
 			for(var i=0;i<str_data.length;i++){
 				if(str_data[i][3] != "break"){
 					var markerPosition  = new kakao.maps.LatLng(str_data[i][0],str_data[i][1]); 
-					var imageNum = 276;
+					var imageNum = 276,
+						curremain = "";
 					switch (str_data[i][3]) {
 						case "plenty":
 							imageNum = 0;
+							curremain = "100 ~ 개";
 							break;
 						case "some":
 							imageNum = 69;
+							curremain = "30 ~ 99개";
 							break;
 						case "few":
 							imageNum = 138;
+							curremain = "2 ~ 29개"
 							break;
 						case "empty":
 							imageNum = 207;
+							curremain = " 1개 이하"
 						default:
 							break;
 					}					
@@ -60,7 +65,9 @@
 						marker = createMarker(markerPosition, markerImage);
 					marker.setMap(map);
 					var curname = str_data[i][2];
-					var iwContent = '<div style="padding:5px;">' + curname +'</div>', // 인포윈도우에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
+					
+					var iwContent = '<div style="padding:5px;">' + curname +'</div>' +
+									'<div style="padding:5px;">남은 개수: ' + curremain +'</div>', // 인포윈도우에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
 						iwRemoveable = true; // removeable 속성을 ture 로 설정하면 인포윈도우를 닫을 수 있는 x버튼이 표시됩니다
 
 					// 인포윈도우를 생성합니다
