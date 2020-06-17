@@ -117,6 +117,11 @@
 				});
 				
 				return marker;  
+			}
+			function makeClickListener(map, marker, infowindow) {
+				return function() {
+					infowindow.open(map, marker);
+				};
 			}   
 
 			function createreliHosMarkers() {
@@ -133,7 +138,23 @@
 					
 					var markerPos = new kakao.maps.LatLng(reliHosDatas[i].latitude, reliHosDatas[i].longtitude);
 					var markerImage = createMarkerImage(markerImageSrc, imageSize, imageOptions),    
-						marker = createMarker(markerPos, markerImage);  
+						marker = createMarker(markerPos, markerImage); 
+					
+					var curhostype = (reliHosDatas[i].hospTyTpCd == 'A') ? "#호흡기 전용 외래 설치" : "#선별진료소 운영" ;
+					var iwContent = '<div style="padding:5px;">' + reliHosDatas[i].yadmNm +'</div>' +
+								'<div style="padding:5px;">' + reliHosDatas[i].telno +'</div>'+
+								'<div style="padding:5px;">' + reliHosDatas[i].yadmNm +'</div>', // 인포윈도우에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
+					iwRemoveable = true; // removeable 속성을 ture 로 설정하면 인포윈도우를 닫을 수 있는 x버튼이 표시됩니다
+
+					// 인포윈도우를 생성합니다
+					var infowindow = new kakao.maps.InfoWindow({
+						content : iwContent,
+						removable : iwRemoveable
+					});
+
+					// 마커에 클릭이벤트를 등록합니다
+					kakao.maps.event.addListener(marker, 'click', makeClickListener(map, marker, infowindow));
+
 					reliHosMarkers.push(marker);
 				}     
 			}
@@ -153,7 +174,20 @@
 				
 					var markerPos = new kakao.maps.LatLng(inspectDatas[i].latitude, inspectDatas[i].longtitude);
 					var markerImage = createMarkerImage(markerImageSrc, imageSize, imageOptions),    
-						marker = createMarker(markerPos, markerImage);  
+						marker = createMarker(markerPos, markerImage);
+
+					var iwContent = '<div style="padding:5px;">' + inspectDatas[i].yadmNm +'</div>' +
+								'<div style="padding:5px;">' + inspectDatas[i].telno +'</div>', // 인포윈도우에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
+					iwRemoveable = true; // removeable 속성을 ture 로 설정하면 인포윈도우를 닫을 수 있는 x버튼이 표시됩니다
+
+					// 인포윈도우를 생성합니다
+					var infowindow = new kakao.maps.InfoWindow({
+						content : iwContent,
+						removable : iwRemoveable
+					});
+
+					// 마커에 클릭이벤트를 등록합니다
+					kakao.maps.event.addListener(marker, 'click', makeClickListener(map, marker, infowindow));
 					inspectMarkers.push(marker);    
 				}        
 			}
@@ -173,7 +207,21 @@
 				
 					var markerPos = new kakao.maps.LatLng(triageDatas[i].latitude, triageDatas[i].longtitude);
 					var markerImage = createMarkerImage(markerImageSrc, imageSize, imageOptions),    
-						marker = createMarker(markerPos, markerImage);  
+						marker = createMarker(markerPos, markerImage); 
+
+					var iwContent = '<div style="padding:5px;">' + triageDatas[i].yadmNm +'</div>' +
+								'<div style="padding:5px;">' + triageDatas[i].telno +'</div>', // 인포윈도우에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
+					iwRemoveable = true; // removeable 속성을 ture 로 설정하면 인포윈도우를 닫을 수 있는 x버튼이 표시됩니다
+
+					// 인포윈도우를 생성합니다
+					var infowindow = new kakao.maps.InfoWindow({
+						content : iwContent,
+						removable : iwRemoveable
+					});
+
+					// 마커에 클릭이벤트를 등록합니다
+					kakao.maps.event.addListener(marker, 'click', makeClickListener(map, marker, infowindow));
+					
 					triageMarkers.push(marker);        
 				}                
 			}

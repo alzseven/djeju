@@ -11,17 +11,6 @@ from django.contrib.gis.db.models.functions import Distance
 
 # Create your views here.
 
-def curmap(request,lat,lng):
-    
-    location = Context({"lat":float(lat), "lng":float(lng)})
-
-    # if len(location) > 0:
-    #     loc = location[0]
-    # else:
-    #     loc = None
-
-    return render(request, 'map/map.html', {'location': location})
-
 def maskmap(request):
     # djangoReq
     cur_lat = request.GET.get('lat')
@@ -67,36 +56,8 @@ def hospmap(request):
 
     user_location = fromstr(f'POINT({float(cur_lng)} {float(cur_lat)})', srid=4326)
 
-    # context_object_name = "shops"
-    # queryset = Hospitals.objects.filter(float(Distance("location",user_location).m)< dis) #어짜피 안에 있는거 다 꺼내면 좌표 기반으로 찍힘
-    # queryset = Hospitals.objects.annotate(distance=Distance("location", user_location)).filter(distance__m <= dis)
     qs = Hospitals.objects.filter(location__distance_lte=(user_location, dis))\
         .values('latitude','longtitude','yadmNm','hospTyTpCd','telno','adtFrDd','isReliefhos','isInspect','isTriage')
-
-    # qs = queryset.filter(distance.m < dis).order_by("distance") #.filter(distance).order_by("distance")[0:3]
-    # qs = list(filter(lambda hospitals,values: hospitals.distance.m <= dis), list(queryset))
-
-    # q = Hospitals.objects.filter(places__point__distance_lte=(point, D(mi=distance_miles_to_search))).annotate(closest_city_id=F('places__city'))
-
-    # point = Point(float(longitude), float(latitude), srid=4326)
-    # buffered = point.buffer(buffer_width)  
-
-    # queryset = queryset.filter(coordinates__within=user_location.buffer(buff))  
-    # queryset = queryset.annotate(distance=Distance('coordinates', point))  
-
-    # qs = Hospitals.objects.annotate(
-    #     distance = Distance("location",user_location)) Subquery(
-    #         )
-    #     Distance
-    #     Subquery(.m < dis)
-    # ).order_by("distance")
-
-    # for d in queryset:
-    #     print(d.distance.m)
-    #     print(type(d.distance.m))
-    #print(str(queryset.values()))
-
-    #hos_list = serializers.serialize('json', qs)
 
     data = Context(
         {"lat":float(cur_lat),
