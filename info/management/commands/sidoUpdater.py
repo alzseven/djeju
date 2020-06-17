@@ -5,8 +5,9 @@ from info.models import Sido
 from django.utils import timezone
 from apscheduler.schedulers.blocking import BlockingScheduler
 
+sched = BlockingScheduler()
 
-@sched.scheduled_job('cron', hour='12,14,16,18', minute=30)
+@sched.scheduled_job('cron', hour='12,14,16,18', minute=40)
 def scheduled_job():
     # _seq = 0
     # _createdt = ""
@@ -73,5 +74,4 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
         print("Update Start!")
-        sched = BlockingScheduler()
         sched.start()
