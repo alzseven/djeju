@@ -141,9 +141,9 @@
 						marker = createMarker(markerPos, markerImage); 
 					
 					var curhostype = (reliHosDatas[i].hospTyTpCd == 'A') ? "#호흡기 전용 외래 설치" : "#선별진료소 운영" ;
-					var iwContent = '<div style="padding:5px;">' + reliHosDatas[i].yadmNm +'</div>' +
+					var iwContent = '<div style="padding:5px; white-space: nowrap;">' + reliHosDatas[i].yadmNm +'</div>' +
 								'<div style="padding:5px;">' + reliHosDatas[i].telno +'</div>'+
-								'<div style="padding:5px;">' + reliHosDatas[i].yadmNm +'</div>', // 인포윈도우에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
+								'<div style="padding:5px;">' + curhostype +'</div>', // 인포윈도우에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
 					iwRemoveable = true; // removeable 속성을 ture 로 설정하면 인포윈도우를 닫을 수 있는 x버튼이 표시됩니다
 
 					// 인포윈도우를 생성합니다
