@@ -27,11 +27,12 @@
 								data.stores[i].name,
 								data.stores[i].remain_stat];
 			}
-
+			
 			var map = new kakao.maps.Map(container, options);
 
 			var markerImageSrc = "{% static 'maskcol.png' %}";
-			
+			var infowindows = [];
+
 			for(var i=0;i<str_data.length;i++){
 				if(str_data[i][3] != "break"){
 					var markerPosition  = new kakao.maps.LatLng(str_data[i][0],str_data[i][1]); 
@@ -75,17 +76,24 @@
 						content : iwContent,
 						removable : iwRemoveable
 					});
-
+					infowindows.push(infowindow);
 					// 마커에 클릭이벤트를 등록합니다
 					kakao.maps.event.addListener(marker, 'click', makeClickListener(map, marker, infowindow));
 				}
 			}
+			function closeInfoWindow() {
+				for(var idx=0; idx< infowindows.length; idx++){
+					infowindows[idx].close();
+				}
+			}
 			function makeClickListener(map, marker, infowindow) {
 				return function() {
+					closeInfoWindow();
 					infowindow.open(map, marker);
 				};
 			}
 
+			
 			function createMarkerImage(src, size, options) {
 				var markerImage = new kakao.maps.MarkerImage(src, size, options);
 				return markerImage;            

@@ -95,7 +95,8 @@
 			var markerImageSrc = "{% static 'reliefhosmarker.png' %}";
 				reliHosMarkers = [],
 				inspectMarkers = [],
-				triageMarkers = [];
+				triageMarkers = [],
+				infowindows = [];
 
     
 			createreliHosMarkers();
@@ -118,8 +119,14 @@
 				
 				return marker;  
 			}
+			function closeInfoWindow() {
+				for(var idx=0; idx< infowindows.length; idx++){
+					infowindows[idx].close();
+				}
+			}
 			function makeClickListener(map, marker, infowindow) {
 				return function() {
+					closeInfoWindow();
 					infowindow.open(map, marker);
 				};
 			}   
@@ -151,7 +158,8 @@
 						content : iwContent,
 						removable : iwRemoveable
 					});
-
+					
+					infowindows.push(infowindow);
 					// 마커에 클릭이벤트를 등록합니다
 					kakao.maps.event.addListener(marker, 'click', makeClickListener(map, marker, infowindow));
 
@@ -176,7 +184,7 @@
 					var markerImage = createMarkerImage(markerImageSrc, imageSize, imageOptions),    
 						marker = createMarker(markerPos, markerImage);
 
-					var iwContent = '<div style="padding:5px;">' + inspectDatas[i].yadmNm +'</div>' +
+					var iwContent = '<div style="padding:5px;white-space: nowrap;">' + inspectDatas[i].yadmNm +'</div>' +
 								'<div style="padding:5px;">' + inspectDatas[i].telno +'</div>', // 인포윈도우에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
 					iwRemoveable = true; // removeable 속성을 ture 로 설정하면 인포윈도우를 닫을 수 있는 x버튼이 표시됩니다
 
@@ -185,7 +193,7 @@
 						content : iwContent,
 						removable : iwRemoveable
 					});
-
+					infowindows.push(infowindow);
 					// 마커에 클릭이벤트를 등록합니다
 					kakao.maps.event.addListener(marker, 'click', makeClickListener(map, marker, infowindow));
 					inspectMarkers.push(marker);    
@@ -209,7 +217,7 @@
 					var markerImage = createMarkerImage(markerImageSrc, imageSize, imageOptions),    
 						marker = createMarker(markerPos, markerImage); 
 
-					var iwContent = '<div style="padding:5px;">' + triageDatas[i].yadmNm +'</div>' +
+					var iwContent = '<div style="padding:5px;white-space: nowrap;">' + triageDatas[i].yadmNm +'</div>' +
 								'<div style="padding:5px;">' + triageDatas[i].telno +'</div>', // 인포윈도우에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
 					iwRemoveable = true; // removeable 속성을 ture 로 설정하면 인포윈도우를 닫을 수 있는 x버튼이 표시됩니다
 
@@ -218,7 +226,7 @@
 						content : iwContent,
 						removable : iwRemoveable
 					});
-
+					infowindows.push(infowindow);
 					// 마커에 클릭이벤트를 등록합니다
 					kakao.maps.event.addListener(marker, 'click', makeClickListener(map, marker, infowindow));
 					
@@ -258,7 +266,8 @@
 					setreliHosMarkers(null);
 					setinspectMarkers(null);
 					settriageMarkers(map);  
-				}    
+				}
+				infowindow.close();   
 			} 
 	</script>
 	</body>
