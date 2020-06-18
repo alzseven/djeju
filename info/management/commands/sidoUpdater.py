@@ -7,7 +7,7 @@ from apscheduler.schedulers.blocking import BlockingScheduler
 
 sched = BlockingScheduler()
 
-@sched.scheduled_job('cron', hour='12,14,16,18', minute=40)
+@sched.scheduled_job('cron', hour='10-18', minute=50)
 def scheduled_job():
     # _seq = 0
     # _createdt = ""
