@@ -4,7 +4,6 @@ import xmltodict
 from django.contrib.gis.geos import fromstr
 from map.models import Hospitals
 
-# TODO:데이터 시작위치, 끝 위치 받아서 가져오게 해야함
 def run():
     CREATE_CODE = 1
     # READ_CODE = 2
@@ -35,8 +34,6 @@ def createhos():
     prexmlObj = xmltodict.parse(preReq)
     totalCount = prexmlObj['response']['body']['totalCount']
 
-    # _spclAdmTyCd = ""
-
     print("총 데이터 수: " + totalCount)
     input_min = int(input("입력을 시작할 페이지: (페이지 당 데이터 100개)"))
     input_max = int(input("입력을 종료할 페이지: (페이지 당 데이터 100개)"))
@@ -44,7 +41,6 @@ def createhos():
         print("잘못된 입력입니다.")
         sys.exit(1)
 
-    # 1,(int(totalCount)//numOfRows)+2
     for page_num in range(input_min, input_max):
         _sidoNm = ""
         _sgguNm = ""
@@ -75,7 +71,6 @@ def createhos():
             _adtFrDd = reliData[i]['adtFrDd']
             _telno = reliData[i]['telno']
             
-            # if reliData[i]['spclAdmTyCd']
             if Hospitals.objects.filter(telno = _telno).exists():
                 if reliData[i]['spclAdmTyCd'] == "A0":
                     Hospitals.objects.filter(telno = _telno).update(isReliefhos = True)
@@ -85,8 +80,7 @@ def createhos():
                     continue
                 elif reliData[i]['spclAdmTyCd'] == "99":
                     Hospitals.objects.filter(telno = _telno).update(isTriage = True)
-                    continue
-            # _spclAdmTyCd = reliData[i]['spclAdmTyCd']    
+                    continue 
             else:
                 if reliData[i]['spclAdmTyCd'] == "A0":
                     _isReliefhos = True
@@ -153,8 +147,6 @@ def updatehos():
     prexmlObj = xmltodict.parse(preReq)
     totalCount = prexmlObj['response']['body']['totalCount']
 
-    # _spclAdmTyCd = ""
-
     print("총 데이터 수: " + totalCount)
     input_min = int(input("입력을 시작할 페이지: (페이지 당 데이터 100개)"))
     input_max = int(input("입력을 종료할 페이지: (페이지 당 데이터 100개)"))
@@ -162,7 +154,6 @@ def updatehos():
         print("잘못된 입력입니다.")
         sys.exit(1)
 
-    # 1,(int(totalCount)//numOfRows)+2
     for page_num in range(input_min, input_max):
         _hospTyTpCd = ""
 
@@ -178,7 +169,6 @@ def updatehos():
                 _hospTyTpCd = reliData[i]['hospTyTpCd']
             _telno = reliData[i]['telno']
             
-            # if reliData[i]['spclAdmTyCd']
             if Hospitals.objects.filter(telno = _telno).exists():
                 if str(reliData[i]['spclAdmTyCd']) == "A0":
                     Hospitals.objects.filter(telno = _telno).update(hospTyTpCd = _hospTyTpCd)

@@ -1,4 +1,5 @@
 <html>
+	<!--TODO: seperate style sheet and js -->
 	{% load static %}
 	<head>
 		<meta charset="utf-8"/>
@@ -9,13 +10,7 @@
 			.fixed{ position: absolute; right: 10px; bottom: 2px; color: rgb(0, 0, 0); width: 150px; text-align:end;font-size:12px;} 
 			.category {position:absolute;overflow:hidden;top:10px;left:10px;width:360px;height:40px;z-index:10;border:1px solid black;font-family:'Malgun Gothic','맑은 고딕',sans-serif;font-size:12px;text-align:center;background-color:#fff;}
 			.category .menu_selected {background:#91ff00;color:#fff;border-left:1px solid #2f3191;border-right:1px solid #2f3191;margin:0 -1px;}
-			.category li{list-style:none;float:left;width:120px;height:40px; padding-top:5px;cursor:pointer;} 
-			/* .category .ico_comm {display:block;margin:0 auto 2px;width:108px;height:148.5px;background:url("{% static 'reliefhosmarker.png' %}") no-repeat;} 
-			.category .ico_reliHos {background-position: -33px -52px;}  
-			.category .ico_inspect {background-position: -31px -349px;}   
-			.category .ico_triage {background-position: -34px -507px;} */
-			/* TODO:FIX This */
-			
+			.category li{list-style:none;float:left;width:120px;height:40px; padding-top:5px;cursor:pointer;} 			
 		  </style>
 	</head>
 	<body>
@@ -32,7 +27,6 @@
 						white-space: nowrap;
 						font-size: x-large;
 						position: relative;"> 안심병원 </p>
-						<!-- <span class="ico_comm ico_reliHos"></span> -->
 					</li>
 					<li id="inspectMenu" onclick="changeMarker('inspect')">
 						<p style="z-index: 1;
@@ -42,7 +36,6 @@
 						white-space: nowrap;
 						font-size: x-large;
 						position: relative;"> 검사기관 </p>
-						<!-- <span class="ico_comm ico_inspect"></span> -->
 					</li>
 					<li id="triageMenu" onclick="changeMarker('triage')">
 						<p style="z-index: 1;
@@ -51,7 +44,6 @@
 						white-space: nowrap;
 						font-size: x-large;
 						position: relative;"> 선별진료소 </p>
-						<!-- <span class="ico_comm ico_triage"></span> -->
 					</li>
 				</ul>
 				
@@ -79,7 +71,6 @@
 				inspectDatas = [],
 				triageDatas = [];
 
-			//('latitude','longtitude','yadmNm','hospTyTpCd','telno','adtFrDd','isReliefhos','isInspect','isTriage')
 			for(var i=0;i<data.length;i++){
 				if (data[i].isReliefhos == true){
 					reliHosDatas.push(data[i]);
@@ -91,7 +82,7 @@
 					triageDatas.push(data[i]);
 				}
 			}
-			//TODO: 이 아래부터 할것
+
 			var markerImageSrc = "{% static 'reliefhosmarker.png' %}";
 				reliHosMarkers = [],
 				inspectMarkers = [],
@@ -150,17 +141,15 @@
 					var curhostype = (reliHosDatas[i].hospTyTpCd == 'A') ? "#호흡기 전용 외래 설치" : "#선별진료소 운영" ;
 					var iwContent = '<div style="padding:5px; white-space: nowrap;">' + reliHosDatas[i].yadmNm +'</div>' +
 								'<div style="padding:5px;">' + reliHosDatas[i].telno +'</div>'+
-								'<div style="padding:5px;">' + curhostype +'</div>', // 인포윈도우에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
-					iwRemoveable = true; // removeable 속성을 ture 로 설정하면 인포윈도우를 닫을 수 있는 x버튼이 표시됩니다
+								'<div style="padding:5px;">' + curhostype +'</div>',
+					iwRemoveable = true;
 
-					// 인포윈도우를 생성합니다
 					var infowindow = new kakao.maps.InfoWindow({
 						content : iwContent,
 						removable : iwRemoveable
 					});
 					
 					infowindows.push(infowindow);
-					// 마커에 클릭이벤트를 등록합니다
 					kakao.maps.event.addListener(marker, 'click', makeClickListener(map, marker, infowindow));
 
 					reliHosMarkers.push(marker);
@@ -185,16 +174,14 @@
 						marker = createMarker(markerPos, markerImage);
 
 					var iwContent = '<div style="padding:5px;white-space: nowrap;">' + inspectDatas[i].yadmNm +'</div>' +
-								'<div style="padding:5px;">' + inspectDatas[i].telno +'</div>', // 인포윈도우에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
-					iwRemoveable = true; // removeable 속성을 ture 로 설정하면 인포윈도우를 닫을 수 있는 x버튼이 표시됩니다
+								'<div style="padding:5px;">' + inspectDatas[i].telno +'</div>',
+					iwRemoveable = true;
 
-					// 인포윈도우를 생성합니다
 					var infowindow = new kakao.maps.InfoWindow({
 						content : iwContent,
 						removable : iwRemoveable
 					});
 					infowindows.push(infowindow);
-					// 마커에 클릭이벤트를 등록합니다
 					kakao.maps.event.addListener(marker, 'click', makeClickListener(map, marker, infowindow));
 					inspectMarkers.push(marker);    
 				}        
@@ -218,16 +205,14 @@
 						marker = createMarker(markerPos, markerImage); 
 
 					var iwContent = '<div style="padding:5px;white-space: nowrap;">' + triageDatas[i].yadmNm +'</div>' +
-								'<div style="padding:5px;">' + triageDatas[i].telno +'</div>', // 인포윈도우에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
-					iwRemoveable = true; // removeable 속성을 ture 로 설정하면 인포윈도우를 닫을 수 있는 x버튼이 표시됩니다
+								'<div style="padding:5px;">' + triageDatas[i].telno +'</div>',
+					iwRemoveable = true;
 
-					// 인포윈도우를 생성합니다
 					var infowindow = new kakao.maps.InfoWindow({
 						content : iwContent,
 						removable : iwRemoveable
 					});
 					infowindows.push(infowindow);
-					// 마커에 클릭이벤트를 등록합니다
 					kakao.maps.event.addListener(marker, 'click', makeClickListener(map, marker, infowindow));
 					
 					triageMarkers.push(marker);        

@@ -1,14 +1,9 @@
 import sys
 import requests
-# import json
 import xmltodict
-# from django.contrib.gis.geos import fromstr
-# from urllib import parse
 from info.models import Sido
 from django.utils import timezone
 
-
-# TODO:데이터 시작위치, 끝 위치 받아서 가져오게 해야함
 def run():
     CREATE_CODE = 1
     # READ_CODE = 2
@@ -55,21 +50,12 @@ def createsido():
 
     key = "j%2BnuUay451ipAStppt2Uh7XE3aAUvC%2FtxdLMMHEreI7KR%2FY0%2B0%2BIAsODyasKyftwZXHwQ8SNTxD2QY5y2W8aXw%3D%3D"
 
-    # queryParams = '?' + parse.urlencode({ parse.quote_plus('ServiceKey') : key, parse.quote_plus('pageNo') : '1', \
-    #      parse.quote_plus('numOfRows') : '50', parse.quote_plus('startCreateDt') : today_str, parse.quote_plus('endCreateDt') : today_str })
-
     sidoUrl = "http://openapi.data.go.kr/openapi/service/rest/Covid19/getCovid19SidoInfStateJson" # + queryParams
 
     api_key_decode = requests.utils.unquote(key) 
     parameters = {"serviceKey":api_key_decode, "numOfROws":50, "pageNo":1, "startCreateDt":today_str, "endCreateDt":today_str}
     sidoReq = requests.get(sidoUrl, params = parameters).content
 
-
-    
-
-    # sidoUrl = "http://openapi.data.go.kr/openapi/service/rest/Covid19/getCovid19SidoInfStateJson?serviceKey=" \
-    #         + key +"&pageNo=1&numOfRows=50&startCreateDt=" + today_str +"&endCreateDt=" + today_str
-    # sidoReq = requests.get(sidoUrl).content
     sidoxmlObj = xmltodict.parse(sidoReq)
     print("key: " + key)
     print(sidoxmlObj)

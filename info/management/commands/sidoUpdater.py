@@ -9,21 +9,6 @@ sched = BlockingScheduler()
 
 @sched.scheduled_job('cron', hour='10-18', minute=0)
 def scheduled_job():
-    # _seq = 0
-    # _createdt = ""
-    # _deathcnt = 0
-    # _defCnt = 0
-    # _gubun = ""
-    # _gubuncn = ""
-    # _gubunen = ""
-    # _incdec = 0
-    # _isolclearcnt = 0
-    # _isollingCnt = 0
-    # _localOccCnt = 0
-    # _overFlowCnt = 0
-    # _qurrate = ""
-    # _stdday = ""
-
     now = timezone.localtime()
     day_str = (str(now.day)) if now.day > 9 else ("0" + str(now.day))
     month_str = (str(now.month)) if now.month > 9 else ("0" + str(now.month))

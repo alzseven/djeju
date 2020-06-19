@@ -3,8 +3,6 @@ from django.template import Context
 import json
 import requests
 from map.models import Hospitals
-
-
 from django.contrib.gis.geos import fromstr
 from django.contrib.gis.db.models.functions import Distance
 
@@ -37,7 +35,6 @@ def maskmap(request):
          "strdata":str(result)
          })
 
-    #TODO:Filtering at view?
     return render(request, 'map/maskstore.html', {'strdata':data})
 
 def hospmap(request):
@@ -68,8 +65,4 @@ def hospmap(request):
 
     #TODO:Filtering at view?
 
-    #return HttpResponse(json.dumps(list(qs), ensure_ascii=False, default=str))
     return render(request, 'map/hospital.html', {'data':data})
-
-# def infstate(request):
-#     return Null
